@@ -61,7 +61,7 @@ function Login({ history }) {
             value={ user.password }
             onChange={ (e) => handleChange(e) }
             data-testid="password-input"
-            type="text"
+            type="password"
             name="password"
             id="password-input"
           />

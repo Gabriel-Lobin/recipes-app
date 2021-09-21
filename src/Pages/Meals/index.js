@@ -1,19 +1,13 @@
 import React from 'react';
-import profileIcon from '../../images/profileIcon.svg';
-import searchIcon from '../../images/searchIcon.svg';
+import Header from '../../Components/Header';
 
 function Meals() {
   console.log('hello');
   return (
-    <header>
-      <button type="button" data-testid="profile-top-btn">
-        <img src={ profileIcon } />
-      </button>
-      <h1 data-testid="page-title">Comidas</h1>
-      <button type="button" data-testid="search-top-btn">
-        <img src={ searchIcon } />
-      </button>
-    </header>
+    <div>
+      <Header />
+      main page
+    </div>
   );
 }
 
