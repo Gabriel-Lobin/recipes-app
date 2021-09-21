@@ -24,9 +24,8 @@ yarn-error.log*
 
 .vscode
 
-
 cypress/screenshots/
 cypress/videos/
 cypress/reports
 
-package-lock.json
+package-lock.json*
