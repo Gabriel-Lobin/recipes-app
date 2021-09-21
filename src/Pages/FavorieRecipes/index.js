@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Login() {
+function FavorieRecipes() {
   console.log('hello');
   return (
     <div>hello</div>
   );
 }
 
-export default Login;
+export default FavorieRecipes;
