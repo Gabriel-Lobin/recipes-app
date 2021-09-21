@@ -4,7 +4,6 @@ import Context from '../../Context/Context';
 import './styles.css';
 import rockGlass from '../../images/rockGlass.svg';
 
-
 const MIN_LENGTH = 6;
 
 function Login({ history }) {
@@ -42,15 +41,15 @@ function Login({ history }) {
   return (
     <div>
       <div className="meals">
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
-    </div>
+        <span className="logo">TRYBE</span>
+        <object
+          className="rocksGlass"
+          type="image/svg+xml"
+          data={ rockGlass }
+        >
+          Glass
+        </object>
+      </div>
       <form>
         <label htmlFor="email-input">
           <input
