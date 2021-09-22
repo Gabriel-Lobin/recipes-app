@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router';
 import Context from '../../Context/Context';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
@@ -6,9 +7,11 @@ import { Titulos, ButtonsHidden } from '../../utils/compare';
 
 function Header() {
   const { title } = useContext(Context);
+  const goTo = useHistory();
   return (
     <header>
       <button
+        onClick={ () => goTo.push('/perfil') }
         src="../../images/profileIcon.svg"
         type="button"
         data-testid="profile-top-btn"
