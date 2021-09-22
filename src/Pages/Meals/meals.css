@@ -1,0 +1,12 @@
+.meals {
+  align-items: stretch;
+  background-color: white;
+  display: flex;
+}
+
+.meals-body {
+  background-color: white;
+  border: none;
+  display: flex;
+  flex-direction: column;
+}

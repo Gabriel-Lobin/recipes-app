@@ -1,0 +1,15 @@
+.header {
+  background-color: #efefef;
+  display: flex;
+  flex-flow: row;
+  height: 50px;
+}
+
+.header h1 {
+  font-size: 25px;
+  margin: auto;
+}
+
+.header button {
+  border: none;
+}
