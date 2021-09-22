@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../../Components/Footer/index';
 import Header from '../../Components/Header';
 
 function ExploreByLocation() {
@@ -6,6 +7,7 @@ function ExploreByLocation() {
     <div>
       <Header h1="ExploreOrigin" />
       location
+      <Footer />
     </div>
   );
 }

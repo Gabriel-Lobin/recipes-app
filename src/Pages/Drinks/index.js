@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../../Components/Footer/index';
 import Header from '../../Components/Header';
 
 function Drinks() {
@@ -9,6 +10,7 @@ function Drinks() {
       <Header h1={ drinks } />
       Bebidas
       <Link to="/comidas">comida</Link>
+      <Footer />
     </div>
   );
 }
