@@ -16,11 +16,6 @@ function Login({ history }) {
     });
   };
 
-  //   function validateEmail(email) {
-  //     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  //     return re.test(String(email).toLowerCase());
-  //   }
-
   const validate = () => {
     const { email, password } = user;
     if (email.includes('@') && email.includes('.com') && password.length > MIN_LENGTH) {
@@ -66,7 +61,7 @@ function Login({ history }) {
             value={ user.password }
             onChange={ (e) => handleChange(e) }
             data-testid="password-input"
-            type="text"
+            type="password"
             name="password"
             id="password-input"
           />

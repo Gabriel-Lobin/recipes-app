@@ -1,9 +1,12 @@
 import React from 'react';
+import Header from '../../Components/Header';
 
 function DoneRecipes() {
-  console.log('hello');
   return (
-    <div>hello</div>
+    <div>
+      <Header h1="DoneRecipes" />
+      Receitas feitas
+    </div>
   );
 }
 
