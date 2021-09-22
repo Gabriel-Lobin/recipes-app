@@ -43,7 +43,6 @@ function Profile() {
         >
           Sair
         </button>
-
       </div>
       <Footer />
     </div>
