@@ -6,6 +6,7 @@ import SearchBar from '../../Components/SearchBar.js';
 import Context from '../../Context/Context';
 import MountTitle from '../../Context/customHooks/MountTitle';
 import './meals.css';
+import MealsBody from '../../Components/MealsBody';
 
 function Meals() {
   const { searchButton } = useContext(Context);
@@ -17,7 +18,7 @@ function Meals() {
         searchButton && <SearchBar />
       }
       <div className="meals-body">
-        main page
+        <MealsBody />
         <Link to="/bebidas">bebida</Link>
       </div>
       <Footer />

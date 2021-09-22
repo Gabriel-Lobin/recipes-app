@@ -11,7 +11,7 @@ function Provider({ children }) {
   });
   const [title, setTitle] = useState('');
   const [searchButton, setSearchButton] = useState(false);
-
+  const [randomMeals, setRandomMeals] = useState([]);
   const context = {
     state,
     setState,
@@ -21,6 +21,8 @@ function Provider({ children }) {
     setTitle,
     searchButton,
     setSearchButton,
+    randomMeals,
+    setRandomMeals,
   };
 
   return (

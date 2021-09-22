@@ -1,5 +1,18 @@
 import variable from '../Global';
 
+const fetchApi = async () => {
+  const getApi = await fetch(variable.apiUrl);
+  const { results } = await getApi.json();
+  return results;
+};
+
+const getRandomMeal = async () => {
+  const randomMealAPI = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  const getApi = await fetch(randomMealAPI);
+  const results = await getApi.json();
+  return results;
+};
+
 const byKey = (param, param2, param3) => ({ ...param, [param2]: param3 });
 
 const byTargetValue = (param, param2, param3) => {
@@ -19,8 +32,6 @@ const filterByPlanetName = (param, param2, { target }) => {
   const [[a]] = Object.entries(param).filter(([, e]) => e === param2);
   const filter = param2.filter(({ name }) => name.toLowerCase()
     .includes(target.value.toLowerCase()));
-  // console.clear();
-  // console.log(target.value === '');
   return {
     ...param,
     [a]: target.value === '' ? null : filter,
@@ -55,17 +66,12 @@ const filterByNumericValues = (param) => {
   if (column && comparison && value) {
     const filter = param.fullApi
       .filter((e) => comparing(e[column], comparison, value));
-    // console.clear();
-    // console.log('on ', filter);
-    // console.log('on ', column, comparison, value);
     return {
       ...param,
       api: filter,
       columnSelector: removeColumn,
     };
   }
-  // console.clear();
-  // console.log('off ', column, comparison, value, param);
   return {
     ...param,
   };
@@ -73,8 +79,6 @@ const filterByNumericValues = (param) => {
 
 const onChangeValues = (param, { target }) => {
   const { filters: { filterByName, filterByNumericValues: values } } = param;
-  // console.clear();
-  // console.log(target.value);
   return {
     ...param,
     filters:
@@ -90,13 +94,6 @@ const onChangeValues = (param, { target }) => {
       ],
     },
   };
-};
-
-const fetchApi = async () => {
-  const getApi = await fetch(variable.apiUrl);
-  const { results } = await getApi.json();
-  // console.log('I am fetchApi function: ', results);
-  return results;
 };
 
 const profileLocalStorage = (param) => {
@@ -127,6 +124,8 @@ const services = {
   filterByNumericValues,
   onChangeValues,
   profileLocalStorage,
+  getRandomMeal,
+
 };
 
 export default services;
