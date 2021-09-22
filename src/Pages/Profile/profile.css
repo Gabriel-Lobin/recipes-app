@@ -14,20 +14,15 @@
   margin: auto;
 }
 
-.profile header button {
-  border: none;
-}
-
 .profile-body {
-  padding: 20px;
   height: 400px;
+  padding: 20px;
 }
 
-.profile-body,
-.profile-body div {
+.profile-body, .profile-body div {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin: auto;
 }
 
@@ -37,8 +32,8 @@
 
 .profile-body button {
   border: none;
-  margin: 20px auto;
   height: 50px;
-  width: 100%;
+  margin: 20px auto;
   padding: 10px;
+  width: 100%;
 }
