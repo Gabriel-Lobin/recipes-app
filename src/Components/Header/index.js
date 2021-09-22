@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
+import './header.css';
 
 const Titulos = {
   Explore: 'Explorar',
@@ -26,7 +27,7 @@ const ButtonsHidden = {
 
 function Header({ h1 }) {
   return (
-    <header>
+    <header className="header">
       <button
         src="../../images/profileIcon.svg"
         type="button"

@@ -11,7 +11,7 @@ function Profile() {
 
   return (
     <div>
-      <div className="profile">
+      <div className="profile-header">
         <Header h1="Profile" />
       </div>
       <div className="profile-body">
