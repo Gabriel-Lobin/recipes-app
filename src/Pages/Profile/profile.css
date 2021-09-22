@@ -1,0 +1,39 @@
+.profile {
+  height: 50px;
+}
+
+.profile header {
+  background-color: #efefef;
+  display: flex;
+  flex-flow: row;
+  height: 100%;
+}
+
+.profile header h1 {
+  font-size: 25px;
+  margin: auto;
+}
+
+.profile-body {
+  height: 400px;
+  padding: 20px;
+}
+
+.profile-body, .profile-body div {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.profile-body h2 {
+  margin-bottom: 20px;
+}
+
+.profile-body button {
+  border: none;
+  height: 50px;
+  margin: 20px auto;
+  padding: 10px;
+  width: 100%;
+}

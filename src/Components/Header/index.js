@@ -4,12 +4,13 @@ import Context from '../../Context/Context';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import { Titulos, ButtonsHidden } from '../../utils/compare';
+import './header.css';
 
 function Header() {
   const { title } = useContext(Context);
   const goTo = useHistory();
   return (
-    <header>
+    <header className="header">
       <button
         onClick={ () => goTo.push('/perfil') }
         src="../../images/profileIcon.svg"
