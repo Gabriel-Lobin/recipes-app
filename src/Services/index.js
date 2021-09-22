@@ -99,6 +99,25 @@ const fetchApi = async () => {
   return results;
 };
 
+const profileLocalStorage = (param) => {
+  if (param === 'make') {
+    localStorage.setItem('user', '{ "email": "email@mail.com" }');
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
+    localStorage.setItem('doneRecipes', '[]');
+    localStorage.setItem('favoriteRecipes', '[]');
+    localStorage.setItem('inProgressRecipes', '{}');
+  }
+  if (param === 'erase') {
+    localStorage.removeItem('user');
+    localStorage.removeItem('mealsToken');
+    localStorage.removeItem('cocktailsToken');
+    localStorage.removeItem('doneRecipes');
+    localStorage.removeItem('favoriteRecipes');
+    localStorage.removeItem('inProgressRecipes');
+  }
+};
+
 const services = {
   eraseFilters,
   byKey,
@@ -107,7 +126,7 @@ const services = {
   filterByPlanetName,
   filterByNumericValues,
   onChangeValues,
-
+  profileLocalStorage,
 };
 
 export default services;

@@ -1,0 +1,19 @@
+.profile {
+  height: 50px;
+}
+
+.profile header {
+  background-color: #efefef;
+  display: flex;
+  flex-flow: row;
+  height: 100%;
+}
+
+.profile header h1 {
+  font-size: 25px;
+  margin: auto;
+}
+
+.profile header button {
+  border: none;
+}
