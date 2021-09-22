@@ -1,11 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../../Components/Footer/index';
+import Header from '../../Components/Header';
 
 function Drinks() {
-  console.log('hello');
+  const drinks = 'Bebidas';
   return (
     <div>
-      hello
+      <Header h1={ drinks } />
+      Bebidas
+      <Link to="/comidas">comida</Link>
       <Footer />
     </div>
   );
