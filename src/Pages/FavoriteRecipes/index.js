@@ -1,11 +1,12 @@
 import React from 'react';
 import Header from '../../Components/Header';
+import MountTitle from '../../Context/customHooks/MountTitle';
 
 function FavoriteRecipes() {
-  console.log('hello');
+  MountTitle('FavoriteRecipes');
   return (
     <div>
-      <Header h1="FavoriteRecipes" />
+      <Header />
       Receitas Favoritas
     </div>
   );

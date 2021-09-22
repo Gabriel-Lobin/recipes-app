@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../Components/Header';
+import MountTitle from '../../Context/customHooks/MountTitle';
 
 function Drinks() {
-  const drinks = 'Bebidas';
+  MountTitle('Bebidas');
   return (
     <div>
-      <Header h1={ drinks } />
+      <Header />
       Bebidas
       <Link to="/comidas">comida</Link>
     </div>

@@ -1,10 +1,12 @@
 import React from 'react';
 import Header from '../../Components/Header';
+import MountTitle from '../../Context/customHooks/MountTitle';
 
 function DoneRecipes() {
+  MountTitle('DoneRecipes');
   return (
     <div>
-      <Header h1="DoneRecipes" />
+      <Header />
       Receitas feitas
     </div>
   );

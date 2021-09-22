@@ -1,11 +1,13 @@
 import React from 'react';
 import Header from '../../Components/Header';
+import MountTitle from '../../Context/customHooks/MountTitle';
 
 function ExploreMealByIngredients() {
+  MountTitle('ExploreIngredients');
   return (
     <div>
-      <Header h1="ExploreIngredients" />
-      hello
+      <Header />
+      Explore Ingredients
     </div>
   );
 }

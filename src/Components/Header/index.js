@@ -1,30 +1,11 @@
-import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
+import Context from '../../Context/Context';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
+import { Titulos, ButtonsHidden } from '../../utils/compare';
 
-const Titulos = {
-  Explore: 'Explorar',
-  ExploreMeals: 'Explorar Comidas',
-  ExploreDrinks: 'Explorar Bebidas',
-  ExploreIngredients: 'Explorar Ingredientes',
-  ExploreOrigin: 'Explorar Origem',
-  Profile: 'Perfil',
-  DoneRecipes: 'Receitas Feitas',
-  FavoriteRecipes: 'Receitas Favoritas',
-};
-
-const ButtonsHidden = {
-  Explore: 'Explorar',
-  ExploreMeals: 'Explorar Comidas',
-  ExploreDrinks: 'Explorar Bebidas',
-  ExploreIngredients: 'Explorar Ingredientes',
-  Profile: 'Perfil',
-  DoneRecipes: 'Receitas Feitas',
-  FavoriteRecipes: 'Receitas Favoritas',
-};
-
-function Header({ h1 }) {
+function Header() {
+  const { title } = useContext(Context);
   return (
     <header>
       <button
@@ -36,13 +17,13 @@ function Header({ h1 }) {
       </button>
       <h1 data-testid="page-title">
         {
-          Titulos[h1]
-            ? Titulos[h1]
-            : h1
+          Titulos[title]
+            ? Titulos[title]
+            : title
         }
       </h1>
       {
-        ButtonsHidden[h1]
+        ButtonsHidden[title]
           ? null
           : (
             <button
@@ -51,14 +32,11 @@ function Header({ h1 }) {
               data-testid="search-top-btn"
             >
               <img src={ searchIcon } alt="search icon" />
-            </button>)
+            </button>
+          )
       }
     </header>
   );
 }
-
-Header.propTypes = {
-  h1: PropTypes.string.isRequired,
-};
 
 export default Header;

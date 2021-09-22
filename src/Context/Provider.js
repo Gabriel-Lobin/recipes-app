@@ -9,12 +9,15 @@ function Provider({ children }) {
     email: '',
     password: '',
   });
+  const [title, setTitle] = useState('');
 
   const context = {
     state,
     setState,
     user,
     setUser,
+    title,
+    setTitle,
   };
 
   return (
