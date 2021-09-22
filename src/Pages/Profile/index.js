@@ -2,17 +2,18 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../../Components/Footer/index';
 import Header from '../../Components/Header';
+import MountTitle from '../../Context/customHooks/MountTitle';
 import './profile.css';
 import functions from '../../Services';
 
 function Profile() {
   const goTo = useHistory();
   functions.profileLocalStorage('make');
-
+  MountTitle('Profile');
   return (
     <div>
       <div className="profile-header">
-        <Header h1="Profile" />
+        <Header />
       </div>
       <div className="profile-body">
         <h2 data-testid="profile-email">
