@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../../Components/Footer/index';
 import Header from '../../Components/Header';
 import MountTitle from '../../Context/customHooks/MountTitle';
 
@@ -10,6 +11,7 @@ function Drinks() {
       <Header />
       Bebidas
       <Link to="/comidas">comida</Link>
+      <Footer />
     </div>
   );
 }

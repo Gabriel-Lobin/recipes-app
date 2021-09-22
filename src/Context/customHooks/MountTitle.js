@@ -5,5 +5,5 @@ export default function MountTitle(title) {
   const { setTitle } = useContext(Context);
   useEffect(() => {
     setTitle(title);
-  }, []);
+  });
 }
