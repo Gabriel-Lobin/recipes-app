@@ -14,12 +14,11 @@ function Profile() {
       <div className="profile">
         <Header h1="Profile" />
       </div>
-      <div>
+      <div className="profile-body">
         <h2 data-testid="profile-email">
           email@mail.com
         </h2>
-      </div>
-      <div>
+
         <button
           type="button"
           data-testid="profile-done-btn"
@@ -44,6 +43,7 @@ function Profile() {
         >
           Sair
         </button>
+
       </div>
       <Footer />
     </div>
