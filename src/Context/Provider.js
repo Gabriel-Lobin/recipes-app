@@ -10,6 +10,7 @@ function Provider({ children }) {
     password: '',
   });
   const [title, setTitle] = useState('');
+  const [searchButton, setSearchButton] = useState(false);
 
   const context = {
     state,
@@ -18,6 +19,8 @@ function Provider({ children }) {
     setUser,
     title,
     setTitle,
+    searchButton,
+    setSearchButton,
   };
 
   return (

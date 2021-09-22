@@ -7,7 +7,7 @@ import { Titulos, ButtonsHidden } from '../../utils/compare';
 import './header.css';
 
 function Header() {
-  const { title } = useContext(Context);
+  const { title, setSearchButton, searchButton } = useContext(Context);
   const goTo = useHistory();
   return (
     <header className="header">
@@ -34,6 +34,7 @@ function Header() {
               src="../../images/searchIcon.svg"
               type="button"
               data-testid="search-top-btn"
+              onClick={ () => setSearchButton(!searchButton) }
             >
               <img src={ searchIcon } alt="search icon" />
             </button>
