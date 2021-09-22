@@ -1,19 +1,25 @@
 import { useState, useEffect } from 'react';
 import func from '../Services';
+import variables from '../Global';
 
 const useFirstHook = () => {
-  const globalState = {};
+  const globalState = {
+    shouldCallApi: true,
+    whichApi: variables.drinkByName,
+    lookingFor: 'soup',
+    api: false,
+  };
   const [state, setState] = useState(globalState);
 
   useEffect(() => {
     const apiFetch = async () => {
       setState({
         ...state,
-        api: await func.fetchApi(),
-        fullApi: await func.fetchApi(),
+        api: await func.fetchApi(state.whichApi, state.lookingFor),
+        shouldCallApi: false,
       });
     };
-    if (!state.api || state.api.length < 1) {
+    if (state.shouldCallApi) {
       apiFetch();
     }
   });

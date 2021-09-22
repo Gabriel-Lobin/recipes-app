@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import Footer from '../../Components/Footer/index';
 import Header from '../../Components/Header';
 import SearchBar from '../../Components/SearchBar.js';
@@ -9,16 +8,15 @@ import './meals.css';
 
 function Meals() {
   const { searchButton } = useContext(Context);
+
   MountTitle('Comidas');
   return (
-    <div className="meals">
+    <div>
       <Header />
-      {
-        searchButton && <SearchBar />
-      }
       <div className="meals-body">
-        main page
-        <Link to="/bebidas">bebida</Link>
+        {
+          searchButton && <SearchBar />
+        }
       </div>
       <Footer />
     </div>
