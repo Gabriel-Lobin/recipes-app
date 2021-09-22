@@ -1,9 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Header from '../../Components/Header';
 
 function Drinks() {
-  console.log('hello');
+  const drinks = 'Bebidas';
   return (
-    <div>hello</div>
+    <div>
+      <Header h1={ drinks } />
+      Bebidas
+      <Link to="/comidas">comida</Link>
+    </div>
   );
 }
 
