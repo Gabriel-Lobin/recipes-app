@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Footer from '../../Components/Footer/index';
 import Header from '../../Components/Header';
+import SearchBar from '../../Components/SearchBar.js';
+import Context from '../../Context/Context';
+import MountTitle from '../../Context/customHooks/MountTitle';
 
 function Drinks() {
-  const drinks = 'Bebidas';
+  const { searchButton } = useContext(Context);
+  MountTitle('Bebidas');
   return (
     <div>
-      <Header h1={ drinks } />
+      <Header />
+      {
+        searchButton && <SearchBar />
+      }
       Bebidas
       <Link to="/comidas">comida</Link>
       <Footer />
