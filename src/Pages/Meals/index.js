@@ -1,9 +1,14 @@
 import React from 'react';
+import Footer from '../../Components/Footer/index';
+import Header from '../../Components/Header/index';
 
 function Meals() {
   console.log('hello');
   return (
-    <div>hello</div>
+    <div>
+      <Header />
+      <Footer />
+    </div>
   );
 }
 

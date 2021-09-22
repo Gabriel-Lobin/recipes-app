@@ -1,9 +1,13 @@
 import React from 'react';
+import Footer from '../../Components/Footer/index';
 
 function ExploreMealByIngredients() {
   console.log('hello');
   return (
-    <div>hello</div>
+    <div>
+      hello
+      <Footer />
+    </div>
   );
 }
 
