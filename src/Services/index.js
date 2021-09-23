@@ -1,19 +1,26 @@
-import variable from '../Global';
+import React from 'react';
+import variables from '../Global';
 
-const fetchApi = async () => {
-  const getApi = await fetch(variable.apiUrl);
+const fetchApi2 = async () => {
+  const getApi = await fetch(variables.apiUrl);
   const { results } = await getApi.json();
   return results;
 };
 
 const getRandomMeal = async () => {
-  const randomMealAPI = 'https://www.themealdb.com/api/json/v1/1/random.php';
-  const getApi = await fetch(randomMealAPI);
+  const getApi = await fetch(variables.randomMealAPI);
   const results = await getApi.json();
   return results;
 };
 
 const byKey = (param, param2, param3) => ({ ...param, [param2]: param3 });
+
+const toUpdateApi = (param, param2, param3) => ({
+  ...param,
+  whichApi: param2,
+  lookingFor: param3,
+  shouldCallApi: true,
+});
 
 const byTargetValue = (param, param2, param3) => {
   const [[a]] = Object.entries(param).filter(([, e]) => e === param2);
@@ -23,77 +30,105 @@ const byTargetValue = (param, param2, param3) => {
   };
 };
 
-const eraseFilters = (param) => ({
-  ...param,
-  api: param.fullApi,
-});
-
-const filterByPlanetName = (param, param2, { target }) => {
-  const [[a]] = Object.entries(param).filter(([, e]) => e === param2);
-  const filter = param2.filter(({ name }) => name.toLowerCase()
-    .includes(target.value.toLowerCase()));
-  return {
-    ...param,
-    [a]: target.value === '' ? null : filter,
-    filters:
-    {
-      filterByName: { name: target.value === '' ? null : target.value },
-      ...param.filters,
-    },
-  };
-};
-
-const filterByNumericValues = (param) => {
-  const { filterByNumericValues: [{ column, comparison, value }] } = param.filters;
-  const removeColumn = param.columnSelector.reduce((acc, e) => {
-    if (e !== column) {
-      acc.push(e);
-    }
-    return acc;
-  }, []);
-  const comparing = (element, toCompare, thisValue) => {
-    switch (toCompare) {
-    case 'maior que':
-      return Number(element) > thisValue;
-    case 'menor que':
-      return Number(element) < thisValue;
-    case 'igual a':
-      return element === thisValue;
-    default:
-      return null;
-    }
-  };
-  if (column && comparison && value) {
-    const filter = param.fullApi
-      .filter((e) => comparing(e[column], comparison, value));
-    return {
-      ...param,
-      api: filter,
-      columnSelector: removeColumn,
-    };
+const alertIfTwoLetters = (param, param2) => {
+  if (variables.drinkByLetter === param && param2.length > 1) {
+    global.alert('Sua busca deve conter somente 1 (um) caracter');
   }
-  return {
-    ...param,
-  };
+  if (variables.mealByLetter === param && param2.length > 1) {
+    global.alert('Sua busca deve conter somente 1 (um) caracter');
+  }
 };
 
-const onChangeValues = (param, { target }) => {
-  const { filters: { filterByName, filterByNumericValues: values } } = param;
-  return {
-    ...param,
-    filters:
-    {
-      filterByName: {
-        name: filterByName.name,
-      },
-      filterByNumericValues: [
-        {
-          ...values[0],
-          [target.name]: target.value,
-        },
-      ],
-    },
-  };
+const goToDetails = (param, param2) => {
+  const { meals = 0, drinks = 0 } = param.api;
+  if (drinks && drinks.length === 1) {
+    const [a] = drinks;
+    const { idDrink } = a;
+    param2.push(`bebidas/${idDrink}`);
+  }
+  if (meals && meals.length === 1) {
+    const [a] = meals;
+    const { idMeal } = a;
+    param2.push(`comidas/${idMeal}`);
+  }
+};
+
+const renderCards = (param) => {
+  const { meals = 0, drinks = 0 } = param.api;
+  if (drinks && drinks.length > 1) {
+    const [a] = drinks;
+    const b = drinks.reduce((acc, e, i) => {
+      if (i < '123456'.length * 2) {
+        acc.push(e);
+      }
+      return acc;
+    }, []);
+    console.log(a);
+    return b.map((e, index) => (
+      <div
+        key={ e.idDrink }
+        data-testid={ `${index}-recipe-card` }
+      >
+        <img
+          data-testid={ `${index}-card-img` }
+          alt={ e.strDrink }
+          key={ e.idDrink }
+          src={ e.strDrinkThumb }
+        />
+        <p data-testid={ `${index}-card-name` }>{e.strDrink}</p>
+      </div>
+    ));
+  }
+  if (meals && meals.length > 1) {
+    const b = meals.reduce((acc, e, i) => {
+      if (i < '654321'.length * 2) {
+        acc.push(e);
+      }
+      return acc;
+    }, []);
+    console.log(b);
+    return b.map((e, index) => (
+      <div
+        key={ e.idMeal }
+        data-testid={ `${index}-recipe-card` }
+      >
+        <img
+          data-testid={ `${index}-card-img` }
+          alt={ e.strMeal }
+          key={ e.idMeal }
+          src={ e.strMealThumb }
+        />
+        <p data-testid={ `${index}-card-name` }>{e.strMeal}</p>
+      </div>
+    ));
+  }
+};
+
+const alertIfCantFind = ({ meals = true, drinks = true }) => {
+  if (!meals || !drinks) {
+    global.alert(
+      'Sinto muito, não encontramos nenhuma receita para esses filtros.',
+    );
+    // console.log(meals, drinks);
+  }
+};
+
+const isMealPage = (param, param2) => {
+  const result = global.location.pathname === '/comidas'
+    ? param : param2;
+  return result;
+};
+
+const fetchApi = async (param, param2) => {
+  try {
+    const getApi = await fetch(`${param}${param2}`);
+    const results = await getApi.json();
+    console.log('I am fetchApi: ', results);
+    alertIfCantFind(results);
+    return results;
+  } catch (e) {
+    console.log('I am fetchApi: ', e);
+  }
 };
 
 const profileLocalStorage = (param) => {
@@ -116,16 +151,18 @@ const profileLocalStorage = (param) => {
 };
 
 const services = {
-  eraseFilters,
   byKey,
   byTargetValue,
   fetchApi,
-  filterByPlanetName,
-  filterByNumericValues,
-  onChangeValues,
   profileLocalStorage,
   getRandomMeal,
-
+  fetchApi2,
+  toUpdateApi,
+  alertIfCantFind,
+  alertIfTwoLetters,
+  isMealPage,
+  goToDetails,
+  renderCards,
 };
 
 export default services;

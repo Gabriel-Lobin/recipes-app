@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import services from '../../Services';
 import Context from '../../Context/Context';
+import globalConsts from '../../Global';
 
 function MealsBody() {
   const { getRandomMeal } = services;
@@ -17,7 +18,7 @@ function MealsBody() {
   };
 
   useEffect(() => {
-    for (let i = 0; i < 12; i += 1) {
+    for (let i = 0; i < globalConsts.TWELVE; i += 1) {
       getRandomMeals();
     }
   }, []);
@@ -28,7 +29,8 @@ function MealsBody() {
 
   return (
     <div>
-      { if(randomMeals.map((crr) => crr.id) }
+      BODY MEAL
+      {/* { if(randomMeals.map((crr) => crr.id) } */}
     </div>);
 }
 
