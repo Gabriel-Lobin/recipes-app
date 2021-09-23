@@ -1,13 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Context from '../../Context/Context';
 import functions from '../../Services';
 import variables from '../../Global';
+import './searchBar.css';
 
 function SearchBar() {
   const { state, setState } = useContext(Context);
+  const goTo = useHistory();
+  useEffect(() => {
+    if (state.api) {
+      functions.goToDetails(state, goTo);
+    }
+  });
 
+  console.log(state);
   return (
-    <div className="meals">
+    <div
+      className={ functions
+        .isMealPage('meals', 'drinks') }
+    >
       <input
         data-testid="search-input"
         placeholder="Buscar Receita"
@@ -15,39 +27,54 @@ function SearchBar() {
           .byTargetValue(state, state.lookingFor, e)) }
       />
       <div>
-        <label htmlFor="meals-ingrediente">
+        <label
+          htmlFor={ functions
+            .isMealPage('meals-ingrediente', 'drinks-ingrediente') }
+        >
           <input
             name="radio"
-            id="meals-ingrediente"
+            id={ functions
+              .isMealPage('meals-ingrediente', 'drinks-ingrediente') }
             data-testid="ingredient-search-radio"
             type="radio"
-            value={ variables.mealByIngredient }
+            value={ functions
+              .isMealPage(variables.mealByIngredient, variables.drinkByIngredient) }
             onChange={ (e) => setState(functions
               .byTargetValue(state, state.whichApi, e)) }
           />
           Ingrediente
         </label>
-        <label htmlFor="meals-nome">
+        <label
+          htmlFor={ functions
+            .isMealPage('meals-nome', 'drinks-nome') }
+        >
           <input
             name="radio"
             onChange={ (e) => setState(functions
               .byTargetValue(state, state.whichApi, e)) }
             data-testid="name-search-radio"
-            id="meals-nome"
+            id={ functions
+              .isMealPage('meals-nome', 'drinks-nome') }
             type="radio"
-            value={ variables.mealByName }
+            value={ functions
+              .isMealPage(variables.mealByName, variables.drinkByName) }
           />
           Nome
         </label>
-        <label htmlFor="meals-primeira-letra">
+        <label
+          htmlFor={ functions
+            .isMealPage('meals-primeira-letra', 'drinks-primeira-letra') }
+        >
           <input
             name="radio"
             onChange={ (e) => setState(functions
               .byTargetValue(state, state.whichApi, e)) }
-            id="meals-primeira-letra"
+            id={ functions
+              .isMealPage('meals-primeira-letra', 'drinks-primeira-letra') }
             data-testid="first-letter-search-radio"
             type="radio"
-            value={ variables.mealByLetter }
+            value={ functions
+              .isMealPage(variables.mealByLetter, variables.drinkByLetter) }
           />
           Primeira letra
         </label>
@@ -56,11 +83,17 @@ function SearchBar() {
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ () => setState(functions
-            .toUpdateApi(state, state.whichApi, state.lookingFor)) }
+          onClick={ () => {
+            setState(functions
+              .toUpdateApi(state, state.whichApi, state.lookingFor));
+            functions.alertIfTwoLetters(state.whichApi, state.lookingFor);
+          } }
         >
           Buscar
         </button>
+      </div>
+      <div className="cards">
+        { state.api && state.api !== null && functions.renderCards(state)}
       </div>
     </div>
   );
