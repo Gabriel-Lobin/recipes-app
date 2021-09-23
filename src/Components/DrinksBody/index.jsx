@@ -3,13 +3,14 @@ import services from '../../Services';
 import Context from '../../Context/Context';
 import globalConsts from '../../Global';
 
-function MealsBody() {
-  const { getRandomMeal } = services;
+function DrinksBody() {
+  const { getRandomDrink } = services;
   const { randomMeals, setRandomMeals } = useContext(Context);
 
-  const getRandomMeals = async () => {
-    await getRandomMeal()
-      .then((data) => data.meals)
+  const getRandomDrinks = async () => {
+    console.log('oi');
+    await getRandomDrink()
+      .then((data) => data.drinks)
       .then((meals) => {
         setRandomMeals((prevState) => [...prevState, meals]);
       });
@@ -17,7 +18,7 @@ function MealsBody() {
 
   useEffect(() => {
     for (let i = 0; i < globalConsts.TWELVE; i += 1) {
-      getRandomMeals();
+      getRandomDrinks();
     }
   }, []);
 
@@ -34,11 +35,11 @@ function MealsBody() {
         >
           <img
             data-testid={ `${index}-card-img` }
-            alt={ e.strMeal }
-            key={ e.idMeal }
-            src={ e.strMealThumb }
+            alt={ e.strDrink }
+            key={ e.idDrink }
+            src={ e.strDrinkThumb }
           />
-          <p data-testid={ `${index}-card-name` }>{e.strMeal}</p>
+          <p data-testid={ `${index}-card-name` }>{e.strDrink}</p>
         </div>
       ))
         : null}
@@ -46,4 +47,4 @@ function MealsBody() {
   );
 }
 
-export default MealsBody;
+export default DrinksBody;

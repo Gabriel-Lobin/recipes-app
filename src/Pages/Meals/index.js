@@ -15,7 +15,10 @@ function Meals() {
     <div>
       <Header />
       <div className="meals-body">
-        <MealsBody />
+        {
+          !searchButton && <MealsBody />
+
+        }
 
         {
           searchButton && <SearchBar />

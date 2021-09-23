@@ -6,7 +6,7 @@ const drinkByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/filter.ph
 const drinkByName = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const drinkByLetter = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 const randomMealAPI = 'https://www.themealdb.com/api/json/v1/1/random.php';
-
+const randomDrinksAPI = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 const TWELVE = 12;
 
 const variables = {
@@ -17,6 +17,7 @@ const variables = {
   drinkByName,
   drinkByIngredient,
   randomMealAPI,
+  randomDrinksAPI,
   TWELVE,
 };
 
