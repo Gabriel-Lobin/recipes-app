@@ -18,5 +18,6 @@
 
 .cards div img {
   height: 130px;
-  width: 130px;
+  width: 100%;
+  border-radius: 10px 10px 70px 0;
 }
