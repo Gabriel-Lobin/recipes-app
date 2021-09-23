@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../../Components/Footer/index';
 import Header from '../../Components/Header';
 import MountTitle from '../../Context/customHooks/MountTitle';
 import './profile.css';
 import functions from '../../Services';
+import Context from '../../Context/Context';
 
 function Profile() {
+  const { user: { email } } = useContext(Context);
   const goTo = useHistory();
   functions.profileLocalStorage('make');
   MountTitle('Profile');
@@ -17,7 +19,7 @@ function Profile() {
       </div>
       <div className="profile-body">
         <h2 data-testid="profile-email">
-          email@mail.com
+          {email}
         </h2>
 
         <button
