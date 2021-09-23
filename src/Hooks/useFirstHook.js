@@ -4,9 +4,9 @@ import variables from '../Global';
 
 const useFirstHook = () => {
   const globalState = {
-    shouldCallApi: true,
-    whichApi: variables.drinkByName,
-    lookingFor: 'soup',
+    shouldCallApi: false,
+    whichApi: variables.drinkByIngredient,
+    lookingFor: '',
     api: false,
   };
   const [state, setState] = useState(globalState);
