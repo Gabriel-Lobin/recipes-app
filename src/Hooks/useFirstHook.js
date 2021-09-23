@@ -4,6 +4,7 @@ import variables from '../Global';
 
 const useFirstHook = () => {
   const globalState = {
+    firstCall: 0,
     shouldCallApi: false,
     whichApi: variables.drinkByIngredient,
     lookingFor: '',
@@ -17,9 +18,10 @@ const useFirstHook = () => {
         ...state,
         api: await func.fetchApi(state.whichApi, state.lookingFor),
         shouldCallApi: false,
+        firstCall: 1,
       });
     };
-    if (state.shouldCallApi) {
+    if (state.shouldCallApi && state.firstCall === 1) {
       apiFetch();
     }
   });
