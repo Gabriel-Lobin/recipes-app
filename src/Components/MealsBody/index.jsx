@@ -11,14 +11,19 @@ function MealsBody() {
     await getRandomMeal()
       .then((data) => data.meals)
       .then((meals) => {
-        setRandomMeals((prevState) => [...prevState, meals]);
+        const beTwelve = meals.reduce((acc, e, i) => {
+          if (i < '123456'.length * 2) {
+            acc.push(e);
+          }
+          return acc;
+        }, []);
+        console.log(beTwelve);
+        setRandomMeals(beTwelve);
       });
   };
 
   useEffect(() => {
-    for (let i = 0; i < globalConsts.TWELVE; i += 1) {
-      getRandomMeals();
-    }
+    getRandomMeals();
   }, []);
 
   useEffect(() => {
@@ -27,7 +32,7 @@ function MealsBody() {
 
   return (
     <div className="cards">
-      {randomMeals.length === globalConsts.TWELVE ? randomMeals.map(([e], index) => (
+      {randomMeals.length === globalConsts.TWELVE ? randomMeals.map((e, index) => (
         <div
           key={ index }
           data-testid={ `${index}-recipe-card` }

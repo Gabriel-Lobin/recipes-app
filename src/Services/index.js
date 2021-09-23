@@ -8,13 +8,13 @@ const fetchApi2 = async () => {
 };
 
 const getRandomMeal = async () => {
-  const getApi = await fetch(variables.randomMealAPI);
+  const getApi = await fetch(variables.mealByName);
   const results = await getApi.json();
   return results;
 };
 
 const getRandomDrink = async () => {
-  const getApi = await fetch(variables.randomDrinksAPI);
+  const getApi = await fetch(variables.drinkByName);
   const results = await getApi.json();
   return results;
 };
