@@ -1,6 +1,18 @@
 import React from 'react';
 import variables from '../Global';
 
+const fetchApi2 = async () => {
+  const getApi = await fetch(variables.apiUrl);
+  const { results } = await getApi.json();
+  return results;
+};
+
+const getRandomMeal = async () => {
+  const getApi = await fetch(variables.randomMealAPI);
+  const results = await getApi.json();
+  return results;
+};
+
 const byKey = (param, param2, param3) => ({ ...param, [param2]: param3 });
 
 const toUpdateApi = (param, param2, param3) => ({
@@ -143,6 +155,8 @@ const services = {
   byTargetValue,
   fetchApi,
   profileLocalStorage,
+  getRandomMeal,
+  fetchApi2,
   toUpdateApi,
   alertIfCantFind,
   alertIfTwoLetters,

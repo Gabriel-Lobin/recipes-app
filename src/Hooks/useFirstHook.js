@@ -6,7 +6,7 @@ const useFirstHook = () => {
   const globalState = {
     firstCall: 0,
     shouldCallApi: false,
-    whichApi: variables.drinkByIngredient,
+    whichApi: variables.randomMealAPI,
     lookingFor: '',
     api: false,
   };

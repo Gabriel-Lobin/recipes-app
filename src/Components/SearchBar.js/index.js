@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import Context from '../../Context/Context';
 import functions from '../../Services';
+import Context from '../../Context/Context';
 import variables from '../../Global';
 import './searchBar.css';
 
