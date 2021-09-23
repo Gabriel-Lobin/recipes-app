@@ -11,7 +11,6 @@ function MealsBody() {
       .then((data) => data.meals)
       .then((data) => {
         const foodArr = randomMeals.push(data);
-        // console.log(randomMeals);
 
         setRandomMeals(foodArr);
       });
@@ -29,9 +28,7 @@ function MealsBody() {
 
   return (
     <div>
-      {' '}
-      { randomMeals.map((crr) => crr.id) }
-      {' '}
+      { if(randomMeals.map((crr) => crr.id) }
     </div>);
 }
 
