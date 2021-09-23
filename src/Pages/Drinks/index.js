@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import Footer from '../../Components/Footer/index';
 import Header from '../../Components/Header';
 import SearchBar from '../../Components/SearchBar.js';
@@ -15,8 +14,6 @@ function Drinks() {
       {
         searchButton && <SearchBar />
       }
-      Bebidas
-      <Link to="/comidas">comida</Link>
       <Footer />
     </div>
   );
