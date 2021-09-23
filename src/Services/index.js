@@ -13,6 +13,12 @@ const getRandomMeal = async () => {
   return results;
 };
 
+const getRandomDrink = async () => {
+  const getApi = await fetch(variables.randomDrinksAPI);
+  const results = await getApi.json();
+  return results;
+};
+
 const byKey = (param, param2, param3) => ({ ...param, [param2]: param3 });
 
 const toUpdateApi = (param, param2, param3) => ({
@@ -163,6 +169,7 @@ const services = {
   isMealPage,
   goToDetails,
   renderCards,
+  getRandomDrink,
 };
 
 export default services;
