@@ -7,28 +7,23 @@ function MealsBody() {
   const { getRandomMeal } = services;
   const { randomMeals, setRandomMeals } = useContext(Context);
 
-  const getRandomMeals = async () => {
-    await getRandomMeal()
-      .then((data) => data.meals)
-      .then((meals) => {
-        const beTwelve = meals.reduce((acc, e, i) => {
-          if (i < '123456'.length * 2) {
-            acc.push(e);
-          }
-          return acc;
-        }, []);
-        console.log(beTwelve);
-        setRandomMeals(beTwelve);
-      });
-  };
-
   useEffect(() => {
-    getRandomMeals();
-  }, []);
-
-  useEffect(() => {
+    const getRandomMeals = async () => {
+      await getRandomMeal()
+        .then((data) => data.meals)
+        .then((meals) => {
+          const beTwelve = meals.reduce((acc, e, i) => {
+            if (i < '123456'.length * 2) {
+              acc.push(e);
+            }
+            return acc;
+          }, []);
+          setRandomMeals(beTwelve);
+        });
+    };
+    if (randomMeals.length < 1) { getRandomMeals(); }
     console.log(randomMeals);
-  }, [randomMeals]);
+  }, [randomMeals, setRandomMeals, getRandomMeal]);
 
   return (
     <div className="cards">
