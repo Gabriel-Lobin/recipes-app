@@ -11,8 +11,6 @@ function MealsBody() {
     const getRandomMeals = async () => {
       setState({
         ...state,
-        mealCategories: await func.getMealCategory(globalConsts.mealCategory),
-        drinksCategories: await func.getDrinkCategory(globalConsts.drinkCategory),
       });
       await func.getMeal()
         .then((data) => data.meals)
@@ -27,7 +25,7 @@ function MealsBody() {
         });
     };
     if (randomMeals.length < 1) { getRandomMeals(); }
-    console.log(state.mealCategories);
+    console.log(state.shouldCallApi);
   }, [randomMeals, setRandomMeals, setState, state]);
 
   return (
@@ -41,7 +39,7 @@ function MealsBody() {
               All
             </button>
           )}
-        {randomMeals.length === globalConsts.TWELVE ? state.mealCategories.meals
+        {state.mealCategories ? state.mealCategories.meals
           .slice(0, globalConsts.FIVE)
           .map(({ strCategory }, index) => (
             <button

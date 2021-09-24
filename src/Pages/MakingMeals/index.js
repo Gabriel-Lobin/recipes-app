@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from '../../Components/Footer/index';
 
 function MakingMeals() {
-  console.log('hello');
+  // console.log('hello');
   return (
     <div>
       hello

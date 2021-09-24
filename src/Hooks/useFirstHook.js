@@ -6,7 +6,7 @@ const useFirstHook = () => {
   const globalState = {
     firstCall: 0,
     shouldCallApi: false,
-    whichApi: variables.randomMealAPI,
+    whichApi: variables.mealByIngredient,
     lookingFor: '',
     api: false,
   };
@@ -24,7 +24,7 @@ const useFirstHook = () => {
         firstCall: 1,
       });
     };
-    if (state.shouldCallApi) {
+    if (state.shouldCallApi || state.firstCall === 0) {
       apiFetch();
     }
   });

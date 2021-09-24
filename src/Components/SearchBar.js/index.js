@@ -14,7 +14,7 @@ function SearchBar() {
     }
   });
 
-  console.log(state);
+  // console.log(state);
   return (
     <div
       className={ functions
@@ -93,7 +93,7 @@ function SearchBar() {
         </button>
       </div>
       <div className="cards">
-        { state.api && state.api !== null && functions.renderCards(state)}
+        { state.render && functions.renderCards(state)}
       </div>
     </div>
   );

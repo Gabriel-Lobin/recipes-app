@@ -17,9 +17,7 @@ function Meals() {
       <div className="meals-body">
         {
           !searchButton && <MealsBody />
-
         }
-
         {
           searchButton && <SearchBar />
         }

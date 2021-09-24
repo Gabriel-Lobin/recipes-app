@@ -1,7 +1,7 @@
 import React from 'react';
 
 function DrinkDetails() {
-  console.log('hello');
+  // console.log('hello');
   return (
     <div>hello</div>
   );

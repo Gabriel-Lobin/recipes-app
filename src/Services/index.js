@@ -49,6 +49,7 @@ const toUpdateApi = (param, param2, param3) => ({
   whichApi: param2,
   lookingFor: param3,
   shouldCallApi: true,
+  render: 1,
 });
 
 const byTargetValue = (param, param2, param3) => {
@@ -85,14 +86,14 @@ const goToDetails = (param, param2) => {
 const renderCards = (param) => {
   const { meals = 0, drinks = 0 } = param.api;
   if (drinks && drinks.length > 1) {
-    const [a] = drinks;
+    // const [a] = drinks;
     const b = drinks.reduce((acc, e, i) => {
       if (i < '123456'.length * 2) {
         acc.push(e);
       }
       return acc;
     }, []);
-    console.log(a);
+    // console.log(a);
     return b.map((e, index) => (
       <div
         key={ e.idDrink }
@@ -115,7 +116,7 @@ const renderCards = (param) => {
       }
       return acc;
     }, []);
-    console.log(b);
+    // console.log(b);
     return b.map((e, index) => (
       <div
         key={ e.idMeal }
@@ -138,7 +139,7 @@ const alertIfCantFind = ({ meals = true, drinks = true }) => {
     global.alert(
       'Sinto muito, não encontramos nenhuma receita para esses filtros.',
     );
-    // console.log(meals, drinks);
+    // // console.log(meals, drinks);
   }
 };
 
@@ -152,11 +153,11 @@ const fetchApi = async (param, param2) => {
   try {
     const getApi = await fetch(`${param}${param2}`);
     const results = await getApi.json();
-    console.log('I am fetchApi: ', results);
+    // console.log('I am fetchApi: ', results);
     alertIfCantFind(results);
     return results;
   } catch (e) {
-    console.log('I am fetchApi: ', e);
+    // console.log('I am fetchApi: ', e);
   }
 };
 
