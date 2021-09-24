@@ -25,7 +25,7 @@ function MealsBody() {
         });
     };
     if (randomMeals.length < 1) { getRandomMeals(); }
-    console.log(state.shouldCallApi);
+    console.log(state.mealCategories);
   }, [randomMeals, setRandomMeals, setState, state]);
 
   return (
