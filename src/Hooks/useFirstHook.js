@@ -27,7 +27,7 @@ const useFirstHook = () => {
     if (state.shouldCallApi || state.firstCall === 0) {
       apiFetch();
     }
-  });
+  }, [state]);
 
   return [state, setState];
 };

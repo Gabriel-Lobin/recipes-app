@@ -5,13 +5,10 @@ import globalConsts from '../../Global';
 
 function MealsBody() {
   const { randomMeals, setRandomMeals } = useContext(Context);
-  const { state, setState } = useContext(Context);
+  const { state } = useContext(Context);
 
   useEffect(() => {
     const getRandomMeals = async () => {
-      setState({
-        ...state,
-      });
       await func.getMeal()
         .then((data) => data.meals)
         .then((meals) => {
@@ -25,13 +22,12 @@ function MealsBody() {
         });
     };
     if (randomMeals.length < 1) { getRandomMeals(); }
-    console.log(state.mealCategories);
-  }, [randomMeals, setRandomMeals, setState, state]);
+  }, [randomMeals, setRandomMeals]);
 
   return (
     <div className="cards">
       <dir>
-        {randomMeals.length === globalConsts.TWELVE
+        {state.mealCategories
           && (
             <button
               type="button"
@@ -50,7 +46,7 @@ function MealsBody() {
               {strCategory}
             </button>
           ))
-          : null}
+          : <h1>Loading...</h1>}
       </dir>
       {randomMeals.length === globalConsts.TWELVE ? randomMeals.map((e, index) => (
         <div

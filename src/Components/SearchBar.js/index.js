@@ -93,7 +93,8 @@ function SearchBar() {
         </button>
       </div>
       <div className="cards">
-        { state.render && state.api && functions.renderCards(state)}
+        {state.render && !state.shouldCallApi && state.api
+          && functions.renderCards(state)}
       </div>
     </div>
   );
