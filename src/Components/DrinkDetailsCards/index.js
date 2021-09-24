@@ -3,7 +3,9 @@ import Context from '../../Context/Context';
 
 function DrinkDetailsCards() {
   const { drinkRecomendations } = useContext(Context);
-  const MAX_LENGTH = 6;
+  const MAX_SEC_CAROUSEL = 4;
+  const MIN_THIRD_CAROUSEL = 3;
+  const MAX_THIRD_CAROUSEL = 6;
 
   return (
     <div className="container-fluid">
@@ -31,7 +33,7 @@ function DrinkDetailsCards() {
                       </h4>
                     </div>
                   );
-                }
+                } return false;
               })
             }
           </div>
@@ -39,7 +41,7 @@ function DrinkDetailsCards() {
           <div className="carousel-item">
             {
               drinkRecomendations.map((meal, index) => {
-                if (index > 1 && index < 4) {
+                if (index > 1 && index < MAX_SEC_CAROUSEL) {
                   return (
                     <div key={ index } data-testid={ `${index}-recomendation-card` }>
                       <img
@@ -52,7 +54,7 @@ function DrinkDetailsCards() {
                       </h4>
                     </div>
                   );
-                }
+                } return false;
               })
 
             }
@@ -61,7 +63,7 @@ function DrinkDetailsCards() {
           <div className="carousel-item">
             {
               drinkRecomendations.map((meal, index) => {
-                if (index > 3 && index < 6) {
+                if (index > MIN_THIRD_CAROUSEL && index < MAX_THIRD_CAROUSEL) {
                   return (
                     <div key={ index } data-testid={ `${index}-recomendation-card` }>
                       <img
@@ -74,15 +76,25 @@ function DrinkDetailsCards() {
                       </h4>
                     </div>
                   );
-                }
+                } return false;
               })
             }
           </div>
-          <a href="#mainSlider" className="carousel-control-prev" role="button" data-slide="prev">
+          <a
+            href="#mainSlider"
+            className="carousel-control-prev"
+            role="button"
+            data-slide="prev"
+          >
             <span className="carousel-control-prev-icon" aria-hidden="true" />
             <span className="sr-only">Previous</span>
           </a>
-          <a href="#mainSlider" className="carousel-control-next" role="button" data-slide="next">
+          <a
+            href="#mainSlider"
+            className="carousel-control-next"
+            role="button"
+            data-slide="next"
+          >
             <span className="carousel-control-next-icon" aria-hidden="true" />
             <span className="sr-only">Next</span>
           </a>
