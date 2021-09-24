@@ -4,32 +4,37 @@ import MealDetailsCards from '../../Components/MealDetailsCards';
 import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
 import Context from '../../Context/Context';
 import MountMealDetails from '../../Context/customHooks/MountMealDetails';
+import ShareImg from '../../images/whiteHeartIcon.svg';
+import FavoriteImg from '../../images/shareIcon.svg';
 
 function MealDetails({ match: { params: { id } } }) {
   const { mealDetails } = useContext(Context);
-  // const mealPath = pathname.includes('/comidas/');
-  // console.log(mealPath);
-
-  // RANDOM API https://www.thecocktaildb.com/api/json/v1/1/random.php
-  //
-  // console.log('ID:', id);
-  // console.log(pathname);
 
   MountMealDetails(id);
-  // console.log('alo', mealDetails);
-  // console.log('alo2', mealRecomendations);
 
   return (
     <div>
-      Meal DETAILS
       <img
         src={ mealDetails.strMealThumb }
         alt="meal-delicius"
         data-testid="recipe-photo"
       />
       <h1 data-testid="recipe-title">{ mealDetails.strMeal}</h1>
-      <button type="button" data-testid="share-btn">Compartilhar</button>
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
+      <button
+        type="button"
+        data-testid="favorite-btn"
+        src={ FavoriteImg }
+      >
+        <img src={ FavoriteImg } alt="share" />
+      </button>
+
+      <button
+        type="button"
+        data-testid="share-btn"
+        src={ ShareImg }
+      >
+        <img src={ ShareImg } alt="share" />
+      </button>
       <p data-testid="recipe-category">{ mealDetails.strCategory }</p>
 
       <MealDetailsIngredients />

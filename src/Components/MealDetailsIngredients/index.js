@@ -7,11 +7,10 @@ const START_ARRAY_MEASURE = 20;
 
 function MealDetailsIngredients() {
   const { mealDetails } = useContext(Context);
-  // const ingredients = [mealDetails];
-  // console.log(ingredients);
+
   const ingredients = Object.values(mealDetails);
   const ingredientsArray = [];
-  // console.log(ingredientsArray);
+
   const createArrayIngredients = () => {
     for (let index = START_ARRAY_NUMBER; index < ARRAY_NUMBER; index += 1) {
       const position = index + START_ARRAY_MEASURE;
