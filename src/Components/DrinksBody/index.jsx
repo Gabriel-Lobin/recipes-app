@@ -1,19 +1,24 @@
 import React, { useContext, useEffect } from 'react';
-import services from '../../Services';
+import func from '../../Services';
 import Context from '../../Context/Context';
 import globalConsts from '../../Global';
 
 function DrinksBody() {
-  const { getRandomDrink } = services;
   const { randomMeals, setRandomMeals } = useContext(Context);
+  const { state, setState } = useContext(Context);
 
   useEffect(() => {
     const getRandomDrinks = async () => {
-      await getRandomDrink()
+      setState({
+        ...state,
+        mealCategories: await func.getMealCategory(globalConsts.mealCategory),
+        drinksCategories: await func.getDrinkCategory(globalConsts.drinkCategory),
+      });
+      await func.getDrink()
         .then((data) => data.drinks)
         .then((meals) => {
           const beTwelve = meals.reduce((acc, e, i) => {
-            if (i < '123456'.length * 2) {
+            if (i < globalConsts.TWELVE) {
               acc.push(e);
             }
             return acc;
@@ -22,11 +27,24 @@ function DrinksBody() {
         });
     };
     if (randomMeals.length < 1) { getRandomDrinks(); }
-    console.log(randomMeals);
-  }, [randomMeals, setRandomMeals, getRandomDrink]);
+    console.log(state.drinksCategories);
+  }, [randomMeals, setRandomMeals, setState, state]);
 
   return (
     <div className="cards">
+      <dir>
+        {randomMeals.length === globalConsts.TWELVE ? state.drinksCategories.drinks
+          .slice(0, globalConsts.FIVE)
+          .map(({ strCategory }, index) => (
+            <dir
+              key={ index }
+              data-testid={ `${strCategory}-category-filter` }
+            >
+              {strCategory}
+            </dir>
+          ))
+          : null}
+      </dir>
       {randomMeals.length === globalConsts.TWELVE ? randomMeals.map((e, index) => (
         <div
           key={ index }

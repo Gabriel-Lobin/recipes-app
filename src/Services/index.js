@@ -7,14 +7,37 @@ const fetchApi2 = async () => {
   return results;
 };
 
-const getRandomMeal = async () => {
+const getMeal = async () => {
   const getApi = await fetch(variables.mealByName);
   const results = await getApi.json();
   return results;
 };
 
-const getRandomDrink = async () => {
+const getRandomMeal = async () => {
+  const getApi = await fetch(variables.randomMealAPI);
+  const results = await getApi.json();
+  return results;
+};
+
+const getDrink = async () => {
   const getApi = await fetch(variables.drinkByName);
+  const results = await getApi.json();
+  return results;
+};
+
+const getMealCategory = async () => {
+  const getApi = await fetch(variables.mealCategory);
+  const results = await getApi.json();
+  return results;
+};
+
+const getDrinkCategory = async () => {
+  const getApi = await fetch(variables.drinkCategory);
+  const results = await getApi.json();
+  return results;
+};
+const getRandomDrink = async () => {
+  const getApi = await fetch(variables.randomDrinksAPI);
   const results = await getApi.json();
   return results;
 };
@@ -170,6 +193,10 @@ const services = {
   goToDetails,
   renderCards,
   getRandomDrink,
+  getMeal,
+  getDrink,
+  getMealCategory,
+  getDrinkCategory,
 };
 
 export default services;
