@@ -11,7 +11,6 @@ function DrinkDetails({ match: { params: { id } } }) {
   const { drinkDetails } = useContext(Context);
 
   MountDrinkDetails(id);
-
   return (
     <div>
       <img
