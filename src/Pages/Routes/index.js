@@ -37,10 +37,10 @@ function Routes() {
         path="/explorar/comidas/ingredientes"
         component={ ExploreMealByIngredients }
       />
-      <Route path="/bebidas/:id" component={ DrinkDetails } />
-      <Route path="/comidas/:id" component={ MealDetails } />
-      <Route path="/bebidas/:id/in-progress" component={ MakingDrinks } />
-      <Route path="/comidas/:id/in-progress" component={ MakingMeals } />
+      <Route exact path="/bebidas/:id" component={ DrinkDetails } />
+      <Route exact path="/comidas/:id" component={ MealDetails } />
+      <Route exact path="/bebidas/:id/in-progress" component={ MakingDrinks } />
+      <Route exact path="/comidas/:id/in-progress" component={ MakingMeals } />
       <Route exact path="/receitas-feitas" component={ DoneRecipes } />
       <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
     </Switch>

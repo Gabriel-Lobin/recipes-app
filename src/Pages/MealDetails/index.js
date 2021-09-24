@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router';
 import MealDetailsCards from '../../Components/MealDetailsCards';
 import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
 import Context from '../../Context/Context';
@@ -8,6 +9,7 @@ import ShareImg from '../../images/whiteHeartIcon.svg';
 import FavoriteImg from '../../images/shareIcon.svg';
 
 function MealDetails({ match: { params: { id } } }) {
+  const goTo = useHistory();
   const { mealDetails } = useContext(Context);
 
   MountMealDetails(id);
@@ -48,7 +50,13 @@ function MealDetails({ match: { params: { id } } }) {
         data-testid="video"
       />
       <MealDetailsCards />
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      <button
+        onClick={ () => goTo.push(`/comidas/${id}/in-progress`) }
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }

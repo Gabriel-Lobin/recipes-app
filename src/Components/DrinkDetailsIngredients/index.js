@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router';
 import Context from '../../Context/Context';
 
 const ARRAY_NUMBER = 32;
@@ -6,6 +7,7 @@ const START_ARRAY_NUMBER = 21; // era 17
 const START_ARRAY_MEASURE = 15;
 
 function DrinkDetailsIngredients() {
+  const goTo = useHistory();
   const { drinkDetails } = useContext(Context);
 
   const ingredients = Object.values(drinkDetails);
@@ -36,17 +38,35 @@ function DrinkDetailsIngredients() {
   return (
     <>
       <h2>Ingredients</h2>
-
       {
-        ingredientsArray2.map((ingredient, index) => (
-          <p
-            key={ index }
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            {ingredient}
+        goTo.location.pathname.includes('/in-progress')
+          ? (
+            <div className="checkbox-inprogress">
+              {ingredientsArray2.map((ingredient, index) => (
+                <label
+                  data-testid={ `${index}-ingredient-step` }
+                  key={ index }
+                  htmlFor={ ingredients }
+                >
+                  <input
+                    type="checkbox"
+                    name={ ingredient }
+                    id={ ingredient }
+                  />
+                  {ingredient}
+                </label>
+              ))}
+            </div>
+          )
+          : ingredientsArray2.map((ingredient, index) => (
+            <p
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {ingredient}
 
-          </p>
-        ))
+            </p>
+          ))
       }
 
     </>
