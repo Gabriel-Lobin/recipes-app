@@ -21,3 +21,20 @@
   height: 130px;
   width: 100%;
 }
+
+.cards dir {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  padding: 20px;
+  width: 100%;
+}
+
+.cards dir button {
+  border: none;
+  height: 40px;
+  margin: 4px;
+  overflow: hidden;
+  width: 90px;
+}

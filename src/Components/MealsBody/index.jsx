@@ -33,15 +33,24 @@ function MealsBody() {
   return (
     <div className="cards">
       <dir>
+        {randomMeals.length === globalConsts.TWELVE
+          && (
+            <button
+              type="button"
+            >
+              All
+            </button>
+          )}
         {randomMeals.length === globalConsts.TWELVE ? state.mealCategories.meals
           .slice(0, globalConsts.FIVE)
           .map(({ strCategory }, index) => (
-            <dir
+            <button
+              type="button"
               key={ index }
               data-testid={ `${strCategory}-category-filter` }
             >
               {strCategory}
-            </dir>
+            </button>
           ))
           : null}
       </dir>
