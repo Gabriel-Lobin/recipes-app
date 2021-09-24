@@ -20,9 +20,8 @@ export default function MountMealDetails(mealIdFromPage) {
   useEffect(() => {
     async function fetchDataRecomended() {
       const drinkSearched = await services.fetchApi(variables.drinkByName, '');
-      console.log(drinkSearched);
       const drink = drinkSearched.drinks;
-      // console.log('id DETAILS', meal);
+
       setMealRecomendations(drink);
     }
     fetchDataRecomended();

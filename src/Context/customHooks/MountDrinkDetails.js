@@ -11,7 +11,6 @@ export default function MountDrinkDetails(drinkIdPage) {
     async function fetchDataDetails() {
       const drinkSearched = await services.fetchApi(variables.drinkId, `${drinkIdPage}`);
       const drink = drinkSearched.drinks[0];
-      console.log('ae', drink);
       setDrinkDetails(drink);
     }
     fetchDataDetails();
@@ -21,9 +20,8 @@ export default function MountDrinkDetails(drinkIdPage) {
   useEffect(() => {
     async function fetchDataRecomended() {
       const mealSearched = await services.fetchApi(variables.mealByName, '');
-      console.log(mealSearched);
       const meal = mealSearched.meals;
-      // console.log('id DETAILS', meal);
+
       setDrinkRecomendations(meal);
     }
     fetchDataRecomended();
