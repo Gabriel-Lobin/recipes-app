@@ -6,6 +6,7 @@ import Context from '../../Context/Context';
 import MountMealDetails from '../../Context/customHooks/MountMealDetails';
 import ShareImg from '../../images/whiteHeartIcon.svg';
 import FavoriteImg from '../../images/shareIcon.svg';
+import './styles.css';
 
 function MealDetails({ match: { params: { id } } }) {
   const { mealDetails } = useContext(Context);
@@ -13,7 +14,7 @@ function MealDetails({ match: { params: { id } } }) {
   MountMealDetails(id);
 
   return (
-    <div>
+    <div id="meal-body">
       <img
         src={ mealDetails.strMealThumb }
         alt="meal-delicius"
@@ -48,7 +49,14 @@ function MealDetails({ match: { params: { id } } }) {
         data-testid="video"
       />
       <MealDetailsCards />
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      <button
+        type="button"
+        className="btn btn-danger"
+        id="start-recipe"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }

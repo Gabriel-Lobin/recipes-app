@@ -1,0 +1,16 @@
+#start-recipe{
+  position: fixed;
+  width: 35%;
+  bottom: 0;
+}
+
+#meal-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-fluid {
+  margin-bottom: 50px;
+}

@@ -6,13 +6,14 @@ import Context from '../../Context/Context';
 import MountDrinkDetails from '../../Context/customHooks/MountDrinkDetails';
 import ShareImg from '../../images/whiteHeartIcon.svg';
 import FavoriteImg from '../../images/shareIcon.svg';
+import './style.css';
 
 function DrinkDetails({ match: { params: { id } } }) {
   const { drinkDetails } = useContext(Context);
 
   MountDrinkDetails(id);
   return (
-    <div>
+    <div id="meal-body">
       <img
         src={ drinkDetails.strDrinkThumb }
         alt="drink-delicius"
@@ -43,7 +44,14 @@ function DrinkDetails({ match: { params: { id } } }) {
       <DrinkDetailsIngredients />
       <p data-testid="instructions">{ drinkDetails.strInstructions }</p>
       <DrinkDetailsCards />
-      <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+      <button
+        type="button"
+        className="btn btn-danger"
+        id="start-recipe"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }
