@@ -1,16 +1,21 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import DrinkDetailsCards from '../../Components/DrinkDetailsCards';
 import DrinkDetailsIngredients from '../../Components/DrinkDetailsIngredients';
 import Context from '../../Context/Context';
 import MountDrinkDetails from '../../Context/customHooks/MountDrinkDetails';
-import ShareImg from '../../images/whiteHeartIcon.svg';
-import FavoriteImg from '../../images/shareIcon.svg';
+import FavoriteImg from '../../images/whiteHeartIcon.svg';
+import ShareImg from '../../images/shareIcon.svg';
 import './style.css';
 
-function DrinkDetails({ match: { params: { id } } }) {
+const copy = require('clipboard-copy');
+
+function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
   const { drinkDetails } = useContext(Context);
+  const [load, setLoad] = useState(false);
+  const LOAD_TIMER = 1800;
+
   const goTo = useHistory();
 
   MountDrinkDetails(id);
@@ -28,16 +33,22 @@ function DrinkDetails({ match: { params: { id } } }) {
         data-testid="favorite-btn"
         src={ FavoriteImg }
       >
-        <img src={ FavoriteImg } alt="share" />
+        <img src={ FavoriteImg } alt="favorite" />
       </button>
 
       <button
         type="button"
         data-testid="share-btn"
         src={ ShareImg }
+        onClick={ () => {
+          setLoad(true);
+          copy(`http://localhost:3000${pathname}`);
+          setTimeout(() => setLoad(false), LOAD_TIMER);
+        } }
       >
         <img src={ ShareImg } alt="share" />
       </button>
+      { load && <p>Link copiado!</p>}
 
       <p data-testid="recipe-category">
         {`${drinkDetails.strCategory} ${drinkDetails.strAlcoholic}`}
