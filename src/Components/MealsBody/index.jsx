@@ -1,24 +1,21 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import func from '../../Services';
 import Context from '../../Context/Context';
-import globalConsts from '../../Global';
+import GLOBAL from '../../Global';
 
 function MealsBody() {
   const { randomMeals, setRandomMeals } = useContext(Context);
   const { state } = useContext(Context);
+  const [onOff, setOnOff] = useState([0, 0, 0, 0, 0, 0]);
 
+  const goTo = useHistory();
   useEffect(() => {
     const getRandomMeals = async () => {
       await func.getMeal()
         .then((data) => data.meals)
         .then((meals) => {
-          const beTwelve = meals.reduce((acc, e, i) => {
-            if (i < globalConsts.TWELVE) {
-              acc.push(e);
-            }
-            return acc;
-          }, []);
-          setRandomMeals(beTwelve);
+          setRandomMeals(func.beTwelve(meals));
         });
     };
     if (randomMeals.length < 1) { getRandomMeals(); }
@@ -31,26 +28,59 @@ function MealsBody() {
           && (
             <button
               type="button"
+              data-testid="All-category-filter"
+              onClick={ async () => {
+                await func.getMeal()
+                  .then((data) => data.meals)
+                  .then((result) => {
+                    setRandomMeals(func.beTwelve(result));
+                  });
+              } }
             >
               All
             </button>
           )}
         {state.mealCategories ? state.mealCategories.meals
-          .slice(0, globalConsts.FIVE)
+          .slice(0, GLOBAL.FIVE)
           .map(({ strCategory }, index) => (
             <button
               type="button"
               key={ index }
               data-testid={ `${strCategory}-category-filter` }
+              onClick={ onOff[index] === 0 ? async () => {
+                const newArray = onOff.slice();
+                newArray[index] = 1;
+                setOnOff(newArray);
+                setRandomMeals(await func
+                  .filterCategory(GLOBAL
+                    .mealsByCategory, strCategory, GLOBAL.meals));
+              }
+                : (
+                  async () => {
+                    const newArray = onOff.slice();
+                    newArray[index] = 0;
+                    setOnOff(newArray);
+                    await func.getMeal()
+                      .then((data) => data.meals)
+                      .then((meals) => {
+                        setRandomMeals(func.beTwelve(meals));
+                      });
+                  }) }
             >
               {strCategory}
             </button>
           ))
-          : <h1>Loading...</h1>}
+          : (
+            <div className="spinner-grow text-secondary" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>)}
       </dir>
-      {randomMeals.length === globalConsts.TWELVE ? randomMeals.map((e, index) => (
-        <div
+      {randomMeals.length ? randomMeals.map((e, index) => (
+        <button
+          className="button-with-image"
+          onClick={ () => goTo.push(`comidas/${e.idMeal}`) }
           key={ index }
+          type="button"
           data-testid={ `${index}-recipe-card` }
         >
           <img
@@ -60,9 +90,12 @@ function MealsBody() {
             src={ e.strMealThumb }
           />
           <p data-testid={ `${index}-card-name` }>{e.strMeal}</p>
-        </div>
+        </button>
       ))
-        : null}
+        : (
+          <div className="spinner-grow text-secondary" role="status">
+            <span className="sr-only">Loading...</span>
+          </div>)}
     </div>
   );
 }

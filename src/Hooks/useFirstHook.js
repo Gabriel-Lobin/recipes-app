@@ -17,6 +17,7 @@ const useFirstHook = () => {
       setState({
         ...state,
         api: await func.fetchApi(state.whichApi, state.lookingFor),
+        allMeals: await func.getMeal(variables.mealByName),
         mealCategories: await func.getMealCategory(variables.mealCategory),
         drinksCategories: await func.getDrinkCategory(variables.drinkCategory),
         apiRandom: '',

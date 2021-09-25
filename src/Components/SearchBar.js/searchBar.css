@@ -5,9 +5,10 @@
   padding-bottom: 100px;
 }
 
-.cards div {
+.button-with-image {
   align-items: center;
   background-color: #efefef;
+  border: #efefef00;
   border-radius: 10px;
   box-shadow: 0 0 8px 3px #979797;
   display: flex;
@@ -17,14 +18,14 @@
   width: 150px;
 }
 
-.cards div img {
+.cards button img {
   border-radius: 10px 10px 70px 0;
   height: 130px;
   overflow: hidden;
   width: 100%;
 }
 
-.cards div p {
+.cards button p {
   align-items: center;
   border-radius: 5px;
   box-shadow: inset 0 0 14px 19px #ffffffa3;

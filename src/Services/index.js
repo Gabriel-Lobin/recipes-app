@@ -36,10 +36,25 @@ const getDrinkCategory = async () => {
   const results = await getApi.json();
   return results;
 };
+
 const getRandomDrink = async () => {
   const getApi = await fetch(variables.randomDrinksAPI);
   const results = await getApi.json();
   return results;
+};
+
+const beTwelve = (param) => param.reduce((acc, e, i) => {
+  if (i < variables.TWELVE) {
+    acc.push(e);
+  }
+  return acc;
+}, []);
+
+const filterCategory = async (param, param2, param3 = false) => {
+  const getApi = await fetch(`${param}${param2}`);
+  const results = await getApi.json();
+  if (param3) { return beTwelve(results[`${param3}`]); }
+  return beTwelve(results[`${param3}`]);
 };
 
 const byKey = (param, param2, param3) => ({ ...param, [param2]: param3 });
@@ -189,11 +204,13 @@ const services = {
   fetchApi2,
   toUpdateApi,
   alertIfCantFind,
+  filterCategory,
   alertIfTwoLetters,
   isMealPage,
   goToDetails,
   renderCards,
   getRandomDrink,
+  beTwelve,
   getMeal,
   getDrink,
   getMealCategory,
