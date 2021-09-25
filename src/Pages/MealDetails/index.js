@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router';
 import MealDetailsCards from '../../Components/MealDetailsCards';
 import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
 import Context from '../../Context/Context';
@@ -10,6 +11,7 @@ import './styles.css';
 
 function MealDetails({ match: { params: { id } } }) {
   const { mealDetails } = useContext(Context);
+  const goTo = useHistory();
 
   MountMealDetails(id);
 
@@ -57,6 +59,7 @@ function MealDetails({ match: { params: { id } } }) {
           type="button"
           className="btn btn-danger"
           data-testid="start-recipe-btn"
+          onClick={ () => goTo.push(`/comidas/${id}/in-progress`) }
         >
           Iniciar Receita
         </button>
