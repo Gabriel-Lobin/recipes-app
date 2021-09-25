@@ -4,6 +4,8 @@ const mealByLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
 const randomMealAPI = 'https://www.themealdb.com/api/json/v1/1/random.php';
 const mealCategory = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 const mealsByCategory = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
+const mealRandom = 'https://www.themealdb.com/api/json/v1/1/random.php';
+const mealId = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 
 const drinkByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 const drinkByName = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -17,6 +19,8 @@ const FIVE = 5;
 
 const meals = 'meals';
 const drinks = 'drinks';
+const drinkRandom = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+const drinkId = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
 const variables = {
   meals,
@@ -27,6 +31,8 @@ const variables = {
   mealByLetter,
   mealByIngredient,
   mealByName,
+  mealRandom,
+  mealId,
   drinkByLetter,
   drinkByName,
   drinkByIngredient,
@@ -35,6 +41,8 @@ const variables = {
   TWELVE,
   mealCategory,
   drinkCategory,
+  drinkRandom,
+  drinkId,
 };
 
 export default variables;

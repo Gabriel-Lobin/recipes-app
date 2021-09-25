@@ -1,10 +1,75 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router';
+import MealDetailsCards from '../../Components/MealDetailsCards';
+import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
+import Context from '../../Context/Context';
+import MountMealDetails from '../../Context/customHooks/MountMealDetails';
+import ShareImg from '../../images/whiteHeartIcon.svg';
+import FavoriteImg from '../../images/shareIcon.svg';
 
-function MealDetails() {
-  // console.log('hello');
+function MealDetails({ match: { params: { id } } }) {
+  const goTo = useHistory();
+  const { mealDetails } = useContext(Context);
+
+  MountMealDetails(id);
+
   return (
-    <div>hello</div>
+    <div>
+      <img
+        src={ mealDetails.strMealThumb }
+        alt="meal-delicius"
+        data-testid="recipe-photo"
+      />
+      <h1 data-testid="recipe-title">{ mealDetails.strMeal}</h1>
+      <button
+        type="button"
+        data-testid="favorite-btn"
+        src={ FavoriteImg }
+      >
+        <img src={ FavoriteImg } alt="share" />
+      </button>
+
+      <button
+        type="button"
+        data-testid="share-btn"
+        src={ ShareImg }
+      >
+        <img src={ ShareImg } alt="share" />
+      </button>
+      <p data-testid="recipe-category">{ mealDetails.strCategory }</p>
+
+      <MealDetailsIngredients />
+      <p data-testid="instructions">{ mealDetails.strInstructions }</p>
+      <iframe
+        src={ mealDetails.strYoutube }
+        frameBorder="0"
+        allow="autoplay; encrypted-media"
+        allowFullScreen
+        title="video"
+        data-testid="video"
+      />
+      <MealDetailsCards />
+      <button
+        onClick={ () => goTo.push(`/comidas/${id}/in-progress`) }
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar Receita
+      </button>
+    </div>
   );
 }
+
+MealDetails.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
 export default MealDetails;
