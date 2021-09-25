@@ -14,49 +14,50 @@ function MealDetails({ match: { params: { id } } }) {
   MountMealDetails(id);
 
   return (
-    <div id="meal-body">
-      <img
-        src={ mealDetails.strMealThumb }
-        alt="meal-delicius"
-        data-testid="recipe-photo"
-      />
-      <h1 data-testid="recipe-title">{ mealDetails.strMeal}</h1>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        src={ FavoriteImg }
-      >
-        <img src={ FavoriteImg } alt="share" />
-      </button>
+    <div>
+      <div className="meal-body">
+        <img
+          src={ mealDetails.strMealThumb }
+          alt="meal-delicius"
+          data-testid="recipe-photo"
+        />
+        <h1 data-testid="recipe-title">{ mealDetails.strMeal}</h1>
+        <button
+          type="button"
+          data-testid="favorite-btn"
+          src={ FavoriteImg }
+        >
+          <img src={ FavoriteImg } alt="share" />
+        </button>
 
-      <button
-        type="button"
-        data-testid="share-btn"
-        src={ ShareImg }
-      >
-        <img src={ ShareImg } alt="share" />
-      </button>
-      <p data-testid="recipe-category">{ mealDetails.strCategory }</p>
+        <button
+          type="button"
+          data-testid="share-btn"
+          src={ ShareImg }
+        >
+          <img src={ ShareImg } alt="share" />
+        </button>
+        <p data-testid="recipe-category">{ mealDetails.strCategory }</p>
 
-      <MealDetailsIngredients />
-      <p data-testid="instructions">{ mealDetails.strInstructions }</p>
-      <iframe
-        src={ mealDetails.strYoutube }
-        frameBorder="0"
-        allow="autoplay; encrypted-media"
-        allowFullScreen
-        title="video"
-        data-testid="video"
-      />
-      <MealDetailsCards />
-      <button
-        type="button"
-        className="btn btn-danger"
-        id="start-recipe"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
-      </button>
+        <MealDetailsIngredients />
+        <p data-testid="instructions">{ mealDetails.strInstructions }</p>
+        <iframe
+          src={ mealDetails.strYoutube }
+          frameBorder="0"
+          allow="autoplay; encrypted-media"
+          allowFullScreen
+          title="video"
+          data-testid="video"
+        />
+        <MealDetailsCards />
+        <button
+          type="button"
+          className="btn btn-danger"
+          data-testid="start-recipe-btn"
+        >
+          Iniciar Receita
+        </button>
+      </div>
     </div>
   );
 }

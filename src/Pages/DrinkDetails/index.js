@@ -13,7 +13,7 @@ function DrinkDetails({ match: { params: { id } } }) {
 
   MountDrinkDetails(id);
   return (
-    <div id="meal-body">
+    <div className="meal-body">
       <img
         src={ drinkDetails.strDrinkThumb }
         alt="drink-delicius"

@@ -1,14 +1,14 @@
-#start-recipe{
+.btn-danger {
+  bottom: 0;
   position: fixed;
   width: 35%;
-  bottom: 0;
 }
 
-#meal-body {
+.meal-body {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 .container-fluid {
