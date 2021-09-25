@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import MealDetailsCards from '../../Components/MealDetailsCards';
 import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
 import Context from '../../Context/Context';
@@ -10,7 +10,6 @@ import './styles.css';
 
 function MealDetails({ match: { params: { id } } }) {
   const { mealDetails } = useContext(Context);
-  const [load, setLoad] = useState(false);
 
   MountMealDetails(id);
 
