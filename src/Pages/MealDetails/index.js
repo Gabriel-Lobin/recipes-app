@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import MealDetailsCards from '../../Components/MealDetailsCards';
 import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
 import Context from '../../Context/Context';
@@ -10,6 +10,7 @@ import './styles.css';
 
 function MealDetails({ match: { params: { id } } }) {
   const { mealDetails } = useContext(Context);
+  const [load, setLoad] = useState(false);
 
   MountMealDetails(id);
 
@@ -42,13 +43,16 @@ function MealDetails({ match: { params: { id } } }) {
         <MealDetailsIngredients />
         <p data-testid="instructions">{ mealDetails.strInstructions }</p>
         <iframe
-          src={ mealDetails.strYoutube }
+          src={ mealDetails.strYoutube
+            ? mealDetails.strYoutube.replace('watch?v=', 'embed/')
+            : mealDetails.strYoutube }
           frameBorder="0"
           allow="autoplay; encrypted-media"
           allowFullScreen
           title="video"
           data-testid="video"
         />
+
         <MealDetailsCards />
         <button
           type="button"
