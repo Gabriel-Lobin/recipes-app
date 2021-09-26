@@ -5,18 +5,30 @@ import DrinkDetailsCards from '../../Components/DrinkDetailsCards';
 import DrinkDetailsIngredients from '../../Components/DrinkDetailsIngredients';
 import Context from '../../Context/Context';
 import MountDrinkDetails from '../../Context/customHooks/MountDrinkDetails';
-import FavoriteImg from '../../images/whiteHeartIcon.svg';
+import NotFavoriteImg from '../../images/whiteHeartIcon.svg';
+import FavoriteImg from '../../images/blackHeartIcon.svg';
 import ShareImg from '../../images/shareIcon.svg';
 import './style.css';
 
 const copy = require('clipboard-copy');
 
 function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
-  const { drinkDetails } = useContext(Context);
+  const { drinkDetails, favoriteIcon, setFavoriteIcon } = useContext(Context);
+
   const [load, setLoad] = useState(false);
-  const LOAD_TIMER = 1800;
+  // const LOAD_TIMER = 1800;
 
   const goTo = useHistory();
+
+  const drinkToLocalStorage = {
+    id: drinkDetails.idDrink,
+    type: 'bebida',
+    area: '',
+    category: drinkDetails.strCategory,
+    alcoholicOrNot: drinkDetails.strAlcoholic,
+    name: drinkDetails.strDrink,
+    image: drinkDetails.strDrinkThumb,
+  };
 
   MountDrinkDetails(id);
   return (
@@ -31,9 +43,24 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
       <button
         type="button"
         data-testid="favorite-btn"
-        src={ FavoriteImg }
+        src={ favoriteIcon ? FavoriteImg : NotFavoriteImg }
+        onClick={ () => {
+          setFavoriteIcon(!favoriteIcon);
+          const getFavoriteStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+          if (getFavoriteStorage !== null) {
+            const getDrink = getFavoriteStorage
+              .some((drink) => drink.id === drinkDetails.idDrink);
+
+            if (getDrink === false) {
+              localStorage
+                .setItem('favoriteRecipes', JSON
+                  .stringify([...getFavoriteStorage, drinkToLocalStorage]));
+            }
+          }
+        } }
       >
-        <img src={ FavoriteImg } alt="favorite" />
+        <img src={ favoriteIcon ? FavoriteImg : NotFavoriteImg } alt="favorite" />
       </button>
 
       <button
@@ -43,7 +70,7 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
         onClick={ () => {
           setLoad(true);
           copy(`http://localhost:3000${pathname}`);
-          setTimeout(() => setLoad(false), LOAD_TIMER);
+          // setTimeout(() => setLoad(false), LOAD_TIMER);
         } }
       >
         <img src={ ShareImg } alt="share" />

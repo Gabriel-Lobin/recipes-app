@@ -5,18 +5,30 @@ import MealDetailsCards from '../../Components/MealDetailsCards';
 import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
 import Context from '../../Context/Context';
 import MountMealDetails from '../../Context/customHooks/MountMealDetails';
-import FavoriteImg from '../../images/whiteHeartIcon.svg';
+import NotFavoriteImg from '../../images/whiteHeartIcon.svg';
+import FavoriteImg from '../../images/blackHeartIcon.svg';
 import ShareImg from '../../images/shareIcon.svg';
 import './styles.css';
 
 const copy = require('clipboard-copy');
 
 function MealDetails({ match: { params: { id } }, location: { pathname } }) {
-  const { mealDetails } = useContext(Context);
+  const { mealDetails, favoriteIcon, setFavoriteIcon } = useContext(Context);
+
   const [load, setLoad] = useState(false);
-  const LOAD_TIMER = 1800;
+  // const LOAD_TIMER = 1800;
 
   const goTo = useHistory();
+
+  const mealToLocalStorage = {
+    id: mealDetails.idMeal,
+    type: 'comida',
+    area: mealDetails.strArea,
+    category: mealDetails.strCategory,
+    alcoholicOrNot: '',
+    name: mealDetails.strMeal,
+    image: mealDetails.strMealThumb,
+  };
 
   MountMealDetails(id);
   return (
@@ -30,9 +42,24 @@ function MealDetails({ match: { params: { id } }, location: { pathname } }) {
       <button
         type="button"
         data-testid="favorite-btn"
-        src={ FavoriteImg }
+        src={ favoriteIcon ? FavoriteImg : NotFavoriteImg }
+        onClick={ () => {
+          setFavoriteIcon(!favoriteIcon);
+          const getFavoriteStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+          if (getFavoriteStorage !== null) {
+            const getMeal = getFavoriteStorage
+              .some((meal) => meal.id === mealDetails.idMeal);
+
+            if (getMeal === false) {
+              localStorage
+                .setItem('favoriteRecipes', JSON
+                  .stringify([...getFavoriteStorage, mealToLocalStorage]));
+            }
+          }
+        } }
       >
-        <img src={ FavoriteImg } alt="favorite" />
+        <img src={ favoriteIcon ? FavoriteImg : NotFavoriteImg } alt="favorite" />
       </button>
 
       <button
@@ -42,7 +69,7 @@ function MealDetails({ match: { params: { id } }, location: { pathname } }) {
         onClick={ () => {
           setLoad(true);
           copy(`http://localhost:3000${pathname}`);
-          setTimeout(() => setLoad(false), LOAD_TIMER);
+          // setTimeout(() => setLoad(false), LOAD_TIMER);
         } }
       >
         <img src={ ShareImg } alt="share" />

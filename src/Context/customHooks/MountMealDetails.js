@@ -4,7 +4,29 @@ import services from '../../Services';
 import Context from '../Context';
 
 export default function MountMealDetails(mealIdFromPage) {
-  const { setMealDetails, setMealRecomendations } = useContext(Context);
+  const {
+    setMealDetails,
+    setMealRecomendations,
+    setFavoriteIcon,
+    mealDetails,
+  } = useContext(Context);
+
+  // Quando monta o meal details, chama essa função jogando a comida procurada pelo id
+  useEffect(() => {
+    const getFavoriteStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    let getMeal = false;
+
+    if (getFavoriteStorage !== null) {
+      getMeal = getFavoriteStorage.some((meal) => meal.idMeal === mealDetails.idMeal);
+      if (getMeal === true) {
+        setFavoriteIcon(true);
+      }
+    } else {
+      localStorage.setItem('favoriteRecipes', '[]');
+    }
+
+    console.log('hook', getMeal, mealDetails);
+  }, [mealDetails]);
 
   // Quando monta o meal details, chama essa função jogando a comida procurada pelo id
   useEffect(() => {
