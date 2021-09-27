@@ -1,21 +1,38 @@
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import MealDetailsCards from '../../Components/MealDetailsCards';
 import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
 import Context from '../../Context/Context';
 import MountMealDetails from '../../Context/customHooks/MountMealDetails';
-import ShareImg from '../../images/whiteHeartIcon.svg';
-import FavoriteImg from '../../images/shareIcon.svg';
+import NotFavoriteImg from '../../images/whiteHeartIcon.svg';
+import FavoriteImg from '../../images/blackHeartIcon.svg';
+import ShareImg from '../../images/shareIcon.svg';
+import './styles.css';
 
-function MealDetails({ match: { params: { id } } }) {
+const copy = require('clipboard-copy');
+
+function MealDetails({ match: { params: { id } }, location: { pathname } }) {
+  const { mealDetails, favoriteIcon, setFavoriteIcon } = useContext(Context);
+
+  const [load, setLoad] = useState(false);
+  // const LOAD_TIMER = 1800;
+
   const goTo = useHistory();
-  const { mealDetails } = useContext(Context);
+
+  const mealToLocalStorage = {
+    id: mealDetails.idMeal,
+    type: 'comida',
+    area: mealDetails.strArea,
+    category: mealDetails.strCategory,
+    alcoholicOrNot: '',
+    name: mealDetails.strMeal,
+    image: mealDetails.strMealThumb,
+  };
 
   MountMealDetails(id);
-
   return (
-    <div>
+    <div className="meal-body">
       <img
         src={ mealDetails.strMealThumb }
         alt="meal-delicius"
@@ -25,35 +42,60 @@ function MealDetails({ match: { params: { id } } }) {
       <button
         type="button"
         data-testid="favorite-btn"
-        src={ FavoriteImg }
+        src={ favoriteIcon ? FavoriteImg : NotFavoriteImg }
+        onClick={ () => {
+          setFavoriteIcon(!favoriteIcon);
+          const getFavoriteStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+          if (getFavoriteStorage !== null) {
+            const getMeal = getFavoriteStorage
+              .some((meal) => meal.id === mealDetails.idMeal);
+
+            if (getMeal === false) {
+              localStorage
+                .setItem('favoriteRecipes', JSON
+                  .stringify([...getFavoriteStorage, mealToLocalStorage]));
+            }
+          }
+        } }
       >
-        <img src={ FavoriteImg } alt="share" />
+        <img src={ favoriteIcon ? FavoriteImg : NotFavoriteImg } alt="favorite" />
       </button>
 
       <button
         type="button"
         data-testid="share-btn"
         src={ ShareImg }
+        onClick={ () => {
+          setLoad(true);
+          copy(`http://localhost:3000${pathname}`);
+          // setTimeout(() => setLoad(false), LOAD_TIMER);
+        } }
       >
         <img src={ ShareImg } alt="share" />
       </button>
+      { load && <p>Link copiado!</p>}
       <p data-testid="recipe-category">{ mealDetails.strCategory }</p>
 
       <MealDetailsIngredients />
       <p data-testid="instructions">{ mealDetails.strInstructions }</p>
       <iframe
-        src={ mealDetails.strYoutube }
+        src={ mealDetails.strYoutube
+          ? mealDetails.strYoutube.replace('watch?v=', 'embed/')
+          : mealDetails.strYoutube }
         frameBorder="0"
         allow="autoplay; encrypted-media"
         allowFullScreen
         title="video"
         data-testid="video"
       />
+
       <MealDetailsCards />
       <button
-        onClick={ () => goTo.push(`/comidas/${id}/in-progress`) }
         type="button"
+        className="btn btn-danger"
         data-testid="start-recipe-btn"
+        onClick={ () => goTo.push(`/comidas/${id}/in-progress`) }
       >
         Iniciar Receita
       </button>
