@@ -1,18 +1,15 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router';
+import PropTypes from 'prop-types';
 import Context from '../../Context/Context';
-// import Footer from '../../Components/Footer/index';
 import ShareImg from '../../images/whiteHeartIcon.svg';
 import FavoriteImg from '../../images/shareIcon.svg';
 import MountDrinkDetails from '../../Context/customHooks/MountDrinkDetails';
 import DrinkDetailsIngredients from '../../Components/DrinkDetailsIngredients';
+import './style.css';
 
-function MakingDrinks() {
+function MakingDrinks({ match: { params: { id } } }) {
   const { drinkDetails } = useContext(Context);
-  const { location: { pathname } } = useHistory();
-  MountDrinkDetails(
-    pathname.split('').filter((numb) => (Number(numb) || numb === 0)).join(''),
-  );
+  MountDrinkDetails(id);
   return (
     <div key={ drinkDetails.idDrink }>
       <img data-testid="recipe-photo" src={ drinkDetails.strDrinkThumb } alt="food" />
@@ -41,9 +38,16 @@ function MakingDrinks() {
       >
         terminado
       </button>
-      {/* <Footer /> */}
     </div>
   );
 }
+
+MakingDrinks.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
 export default MakingDrinks;

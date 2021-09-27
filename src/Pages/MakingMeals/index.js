@@ -1,19 +1,15 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router';
-// import Footer from '../../Components/Footer/index';
-import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
+import PropTypes from 'prop-types';
 import Context from '../../Context/Context';
 import ShareImg from '../../images/whiteHeartIcon.svg';
 import FavoriteImg from '../../images/shareIcon.svg';
-import './style.css';
 import MountMealDetails from '../../Context/customHooks/MountMealDetails';
+import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
+import './style.css';
 
-function MakingMeals() {
+function MakingMeals({ match: { params: { id } } }) {
   const { mealDetails } = useContext(Context);
-  const { location: { pathname } } = useHistory();
-  MountMealDetails(
-    pathname.split('').filter((number) => (Number(number) || number === 0)).join(''),
-  );
+  MountMealDetails(id);
   return (
     <div key={ mealDetails.idMeal }>
       <img data-testid="recipe-photo" src={ mealDetails.strMealThumb } alt="food" />
@@ -42,9 +38,16 @@ function MakingMeals() {
       >
         terminado
       </button>
-      {/* <Footer /> */}
     </div>
   );
 }
+
+MakingMeals.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
 export default MakingMeals;
