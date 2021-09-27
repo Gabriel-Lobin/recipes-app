@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
+import Context from '../../Context/Context';
 
 function Comidas() {
   const goTo = useHistory();
-
+  const { state } = useContext(Context);
+  console.log(state, goTo);
   return (
     <div>
-      {/* {console.log(meal)} */}
       <button
         type="button"
         data-testid="explore-by-ingredient"
@@ -24,7 +25,7 @@ function Comidas() {
       <button
         type="button"
         data-testid="explore-surprise"
-        onClick={ () => goTo.push('detalhes/comida') }
+        onClick={ () => goTo.push('/comidas/52771') }
       >
         Me Surpreenda!
       </button>

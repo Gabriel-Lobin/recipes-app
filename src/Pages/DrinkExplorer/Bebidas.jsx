@@ -1,16 +1,25 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router';
+import Context from '../../Context/Context';
 
 function Bebidas() {
+  const goTo = useHistory();
+  const { state } = useContext(Context);
+  console.log(state);
   return (
     <div>
-      <Link to="/explorar/bebidas/ingredientes">
-        <button type="button" data-testid="explore-by-ingredient">
-          Por Ingredientes
-        </button>
-      </Link>
-
-      <button type="button" data-testid="explore-surprise">
+      <button
+        type="button"
+        data-testid="explore-by-ingredient"
+        onClick={ () => goTo.push('/explorar/bebidas/ingredientes') }
+      >
+        Por Ingredientes
+      </button>
+      <button
+        type="button"
+        data-testid="explore-surprise"
+        onClick={ () => goTo.push('/bebidas/178319') }
+      >
         Me Surpreenda!
       </button>
     </div>
