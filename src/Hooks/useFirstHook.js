@@ -4,8 +4,9 @@ import variables from '../Global';
 
 const useFirstHook = () => {
   const globalState = {
+    firstCall: 0,
     shouldCallApi: false,
-    whichApi: variables.drinkByIngredient,
+    whichApi: variables.mealByIngredient,
     lookingFor: '',
     api: false,
   };
@@ -16,13 +17,18 @@ const useFirstHook = () => {
       setState({
         ...state,
         api: await func.fetchApi(state.whichApi, state.lookingFor),
+        allMeals: await func.getMeal(variables.mealByName),
+        mealCategories: await func.getMealCategory(variables.mealCategory),
+        drinksCategories: await func.getDrinkCategory(variables.drinkCategory),
+        apiRandom: '',
         shouldCallApi: false,
+        firstCall: 1,
       });
     };
-    if (state.shouldCallApi) {
+    if (state.shouldCallApi || state.firstCall === 0) {
       apiFetch();
     }
-  });
+  }, [state]);
 
   return [state, setState];
 };

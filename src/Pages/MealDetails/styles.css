@@ -1,0 +1,16 @@
+.btn-danger {
+  bottom: 0;
+  position: fixed;
+  width: 35%;
+}
+
+.meal-body {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container-fluid {
+  margin-bottom: 50px;
+}

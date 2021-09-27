@@ -11,6 +11,12 @@ function Provider({ children }) {
   });
   const [title, setTitle] = useState('');
   const [searchButton, setSearchButton] = useState(false);
+  const [randomMeals, setRandomMeals] = useState([]);
+  const [mealDetails, setMealDetails] = useState([]);
+  const [mealRecomendations, setMealRecomendations] = useState([]);
+  const [drinkDetails, setDrinkDetails] = useState([]);
+  const [drinkRecomendations, setDrinkRecomendations] = useState([]);
+  const [favoriteIcon, setFavoriteIcon] = useState(false);
 
   const context = {
     state,
@@ -21,6 +27,18 @@ function Provider({ children }) {
     setTitle,
     searchButton,
     setSearchButton,
+    randomMeals,
+    setRandomMeals,
+    mealDetails,
+    setMealDetails,
+    mealRecomendations,
+    setMealRecomendations,
+    drinkDetails,
+    setDrinkDetails,
+    drinkRecomendations,
+    setDrinkRecomendations,
+    favoriteIcon,
+    setFavoriteIcon,
   };
 
   return (

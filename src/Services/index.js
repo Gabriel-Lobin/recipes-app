@@ -1,6 +1,62 @@
 import React from 'react';
 import variables from '../Global';
 
+const fetchApi2 = async () => {
+  const getApi = await fetch(variables.apiUrl);
+  const { results } = await getApi.json();
+  return results;
+};
+
+const getMeal = async () => {
+  const getApi = await fetch(variables.mealByName);
+  const results = await getApi.json();
+  return results;
+};
+
+const getRandomMeal = async () => {
+  const getApi = await fetch(variables.randomMealAPI);
+  const results = await getApi.json();
+  return results;
+};
+
+const getDrink = async () => {
+  const getApi = await fetch(variables.drinkByName);
+  const results = await getApi.json();
+  return results;
+};
+
+const getMealCategory = async () => {
+  const getApi = await fetch(variables.mealCategory);
+  const results = await getApi.json();
+  return results;
+};
+
+const getDrinkCategory = async () => {
+  const getApi = await fetch(variables.drinkCategory);
+  const results = await getApi.json();
+  return results;
+};
+
+const getRandomDrink = async () => {
+  const getApi = await fetch(variables.randomDrinksAPI);
+  const results = await getApi.json();
+  return results;
+};
+
+const beTwelve = (param) => param.reduce((acc, e, i) => {
+  if (i < variables.TWELVE) {
+    acc.push(e);
+  }
+  return acc;
+}, []);
+
+const filterCategory = async (param, param2, param3 = false) => {
+  const getApi = await fetch(`${param}${param2}`);
+  const results = await getApi.json();
+  if (param3) { return beTwelve(results[`${param3}`]); }
+  return beTwelve(results[`${param3}`]);
+};
+
 const byKey = (param, param2, param3) => ({ ...param, [param2]: param3 });
 
 const toUpdateApi = (param, param2, param3) => ({
@@ -8,6 +64,7 @@ const toUpdateApi = (param, param2, param3) => ({
   whichApi: param2,
   lookingFor: param3,
   shouldCallApi: true,
+  render: 1,
 });
 
 const byTargetValue = (param, param2, param3) => {
@@ -44,14 +101,14 @@ const goToDetails = (param, param2) => {
 const renderCards = (param) => {
   const { meals = 0, drinks = 0 } = param.api;
   if (drinks && drinks.length > 1) {
-    const [a] = drinks;
+    // const [a] = drinks;
     const b = drinks.reduce((acc, e, i) => {
       if (i < '123456'.length * 2) {
         acc.push(e);
       }
       return acc;
     }, []);
-    console.log(a);
+    // console.log(a);
     return b.map((e, index) => (
       <div
         key={ e.idDrink }
@@ -74,7 +131,7 @@ const renderCards = (param) => {
       }
       return acc;
     }, []);
-    console.log(b);
+    // console.log(b);
     return b.map((e, index) => (
       <div
         key={ e.idMeal }
@@ -97,7 +154,7 @@ const alertIfCantFind = ({ meals = true, drinks = true }) => {
     global.alert(
       'Sinto muito, não encontramos nenhuma receita para esses filtros.',
     );
-    // console.log(meals, drinks);
+    // // console.log(meals, drinks);
   }
 };
 
@@ -111,11 +168,11 @@ const fetchApi = async (param, param2) => {
   try {
     const getApi = await fetch(`${param}${param2}`);
     const results = await getApi.json();
-    console.log('I am fetchApi: ', results);
+    // console.log('I am fetchApi: ', results);
     alertIfCantFind(results);
     return results;
   } catch (e) {
-    console.log('I am fetchApi: ', e);
+    // console.log('I am fetchApi: ', e);
   }
 };
 
@@ -143,12 +200,21 @@ const services = {
   byTargetValue,
   fetchApi,
   profileLocalStorage,
+  getRandomMeal,
+  fetchApi2,
   toUpdateApi,
   alertIfCantFind,
+  filterCategory,
   alertIfTwoLetters,
   isMealPage,
   goToDetails,
   renderCards,
+  getRandomDrink,
+  beTwelve,
+  getMeal,
+  getDrink,
+  getMealCategory,
+  getDrinkCategory,
 };
 
 export default services;

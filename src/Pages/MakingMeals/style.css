@@ -1,0 +1,4 @@
+.checkbox-inprogress {
+  display: flex;
+  flex-direction: column;
+}
