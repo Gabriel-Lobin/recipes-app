@@ -8,7 +8,7 @@ function ExploreByLocation() {
   return (
     <div>
       <Header />
-      location Explore
+
       <Footer />
     </div>
   );

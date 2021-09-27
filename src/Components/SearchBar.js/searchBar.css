@@ -2,22 +2,54 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
+  padding-bottom: 100px;
 }
 
-.cards div {
+.button-with-image {
   align-items: center;
   background-color: #efefef;
+  border: #efefef00;
   border-radius: 10px;
   box-shadow: 0 0 8px 3px #979797;
   display: flex;
   flex-direction: column;
-  height: 150px;
+  height: 180px;
   margin: 10px 5px;
   width: 150px;
 }
 
-.cards div img {
+.cards button img {
   border-radius: 10px 10px 70px 0;
   height: 130px;
+  overflow: hidden;
   width: 100%;
+}
+
+.cards button p {
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: inset 0 0 14px 19px #ffffffa3;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin-top: 10px;
+  overflow: hidden;
+  width: 120px;
+}
+
+.cards dir {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  padding: 20px;
+  width: 100%;
+}
+
+.cards dir button {
+  border: none;
+  height: 40px;
+  margin: 4px;
+  overflow: hidden;
+  width: 90px;
 }

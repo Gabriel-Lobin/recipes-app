@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Input = () => (
   <form>
+
     <Link to="explorar/comidas">
       <button name="input" type="button" data-testid="explore-food">
 
@@ -14,7 +15,6 @@ const Input = () => (
         Explorar Bebidas
       </button>
     </Link>
-    ;
   </form>
 );
 

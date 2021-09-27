@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import Context from '../../Context/Context';
-import Footer from '../../Components/Footer/index';
+// import Footer from '../../Components/Footer/index';
 import ShareImg from '../../images/whiteHeartIcon.svg';
 import FavoriteImg from '../../images/shareIcon.svg';
 import MountDrinkDetails from '../../Context/customHooks/MountDrinkDetails';
@@ -41,7 +41,7 @@ function MakingDrinks() {
       >
         terminado
       </button>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

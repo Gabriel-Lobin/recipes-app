@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import Context from '../../Context/Context';
 import functions from '../../Services';
+import Context from '../../Context/Context';
 import variables from '../../Global';
 import './searchBar.css';
 
@@ -14,7 +14,7 @@ function SearchBar() {
     }
   });
 
-  console.log(state);
+  // console.log(state);
   return (
     <div
       className={ functions
@@ -93,7 +93,8 @@ function SearchBar() {
         </button>
       </div>
       <div className="cards">
-        { state.api && state.api !== null && functions.renderCards(state)}
+        {state.render && !state.shouldCallApi && state.api
+          && functions.renderCards(state)}
       </div>
     </div>
   );

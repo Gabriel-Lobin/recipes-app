@@ -8,7 +8,7 @@ function ExploreDrinksByIngredients() {
   return (
     <div>
       <Header />
-      Explore Ingredients
+
       <Footer />
     </div>
   );

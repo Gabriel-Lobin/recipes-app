@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
-import Footer from '../../Components/Footer/index';
+// import Footer from '../../Components/Footer/index';
 import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
 import Context from '../../Context/Context';
 import ShareImg from '../../images/whiteHeartIcon.svg';
@@ -42,7 +42,7 @@ function MakingMeals() {
       >
         terminado
       </button>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
