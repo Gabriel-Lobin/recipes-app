@@ -1,34 +1,34 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import Context from '../../Context/Context';
-import ShareImg from '../../images/whiteHeartIcon.svg';
-import FavoriteImg from '../../images/shareIcon.svg';
-import MountMealDetails from '../../Context/customHooks/MountMealDetails';
 import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
+import Context from '../../Context/Context';
 import './style.css';
+import MountMealDetails from '../../Context/customHooks/MountMealDetails';
+import FavAndShareBtn from '../../Components/FavoriteAndShareBtn/FavoriteAndShareBtn';
 
-function MakingMeals({ match: { params: { id } } }) {
+function MakingMeals({ match: { params: { id } }, location }) {
   const { mealDetails } = useContext(Context);
+
+  const mealToLocalStorage = {
+    id: mealDetails.idMeal,
+    type: 'comida',
+    area: mealDetails.strArea,
+    category: mealDetails.strCategory,
+    alcoholicOrNot: '',
+    name: mealDetails.strMeal,
+    image: mealDetails.strMealThumb,
+  };
+
   MountMealDetails(id);
   return (
     <div key={ mealDetails.idMeal }>
       <img data-testid="recipe-photo" src={ mealDetails.strMealThumb } alt="food" />
       <h1 data-testid="recipe-title">{ mealDetails.strMeal }</h1>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        src={ FavoriteImg }
-      >
-        <img src={ FavoriteImg } alt="share" />
-      </button>
-
-      <button
-        type="button"
-        data-testid="share-btn"
-        src={ ShareImg }
-      >
-        <img src={ ShareImg } alt="share" />
-      </button>
+      <FavAndShareBtn
+        ToLocalStorage={ mealToLocalStorage }
+        Details={ mealDetails }
+        location={ location }
+      />
       <p data-testid="recipe-category">{mealDetails.strCategory}</p>
       <MealDetailsIngredients />
       <p data-testid="instructions">{mealDetails.strInstructions}</p>
@@ -43,6 +43,7 @@ function MakingMeals({ match: { params: { id } } }) {
 }
 
 MakingMeals.propTypes = {
+  location: PropTypes.objectOf(PropTypes.string).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,

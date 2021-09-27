@@ -1,22 +1,15 @@
 import PropTypes from 'prop-types';
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import DrinkDetailsCards from '../../Components/DrinkDetailsCards';
 import DrinkDetailsIngredients from '../../Components/DrinkDetailsIngredients';
 import Context from '../../Context/Context';
 import MountDrinkDetails from '../../Context/customHooks/MountDrinkDetails';
-import NotFavoriteImg from '../../images/whiteHeartIcon.svg';
-import FavoriteImg from '../../images/blackHeartIcon.svg';
-import ShareImg from '../../images/shareIcon.svg';
+import FavAndShareBtn from '../../Components/FavoriteAndShareBtn/FavoriteAndShareBtn';
 import './style.css';
 
-const copy = require('clipboard-copy');
-
-function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
-  const { drinkDetails, favoriteIcon, setFavoriteIcon } = useContext(Context);
-
-  const [load, setLoad] = useState(false);
-  // const LOAD_TIMER = 1800;
+function DrinkDetails({ match: { params: { id } }, location }) {
+  const { drinkDetails } = useContext(Context);
 
   const goTo = useHistory();
 
@@ -39,44 +32,11 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
         data-testid="recipe-photo"
       />
       <h1 data-testid="recipe-title">{ drinkDetails.strDrink}</h1>
-
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        src={ favoriteIcon ? FavoriteImg : NotFavoriteImg }
-        onClick={ () => {
-          setFavoriteIcon(!favoriteIcon);
-          const getFavoriteStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
-          if (getFavoriteStorage !== null) {
-            const getDrink = getFavoriteStorage
-              .some((drink) => drink.id === drinkDetails.idDrink);
-
-            if (getDrink === false) {
-              localStorage
-                .setItem('favoriteRecipes', JSON
-                  .stringify([...getFavoriteStorage, drinkToLocalStorage]));
-            }
-          }
-        } }
-      >
-        <img src={ favoriteIcon ? FavoriteImg : NotFavoriteImg } alt="favorite" />
-      </button>
-
-      <button
-        type="button"
-        data-testid="share-btn"
-        src={ ShareImg }
-        onClick={ () => {
-          setLoad(true);
-          copy(`http://localhost:3000${pathname}`);
-          // setTimeout(() => setLoad(false), LOAD_TIMER);
-        } }
-      >
-        <img src={ ShareImg } alt="share" />
-      </button>
-      { load && <p>Link copiado!</p>}
-
+      <FavAndShareBtn
+        ToLocalStorage={ drinkToLocalStorage }
+        Details={ drinkDetails }
+        location={ location }
+      />
       <p data-testid="recipe-category">
         {`${drinkDetails.strCategory} ${drinkDetails.strAlcoholic}`}
       </p>
@@ -98,9 +58,7 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
 }
 
 DrinkDetails.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-  }).isRequired,
+  location: PropTypes.objectOf(PropTypes.string).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
