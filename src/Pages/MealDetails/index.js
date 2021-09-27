@@ -17,7 +17,7 @@ function MealDetails({ match: { params: { id } }, location: { pathname } }) {
 
   const [load, setLoad] = useState(false);
   // const LOAD_TIMER = 1800;
-  // a
+  // ab
   const goTo = useHistory();
 
   const mealToLocalStorage = {
