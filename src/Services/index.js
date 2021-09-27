@@ -176,6 +176,16 @@ const fetchApi = async (param, param2) => {
   }
 };
 
+const shouldFetch = async (param) => {
+  try {
+    const getApi = await fetch(`${param}`);
+    const results = await getApi.json();
+    return results;
+  } catch (e) {
+    // console.log('I am fetchApi: ', e);
+  }
+};
+
 const profileLocalStorage = (param) => {
   if (param === 'make') {
     localStorage.setItem('user', '{ "email": "email@mail.com" }');
@@ -196,6 +206,7 @@ const profileLocalStorage = (param) => {
 };
 
 const services = {
+  shouldFetch,
   byKey,
   byTargetValue,
   fetchApi,

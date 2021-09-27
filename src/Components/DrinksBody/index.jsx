@@ -20,7 +20,7 @@ function DrinksBody() {
     };
     if (randomMeals.length < 1) { getRandomDrinks(); }
   }, [randomMeals, setRandomMeals]);
-  console.log(onOff);
+  console.log(randomMeals);
 
   return (
     <div className="cards">
