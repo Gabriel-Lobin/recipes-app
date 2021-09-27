@@ -9,6 +9,7 @@ function Explorer() {
   return (
     <div>
       <Header />
+
       <Input />
       <Footer />
     </div>
