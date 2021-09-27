@@ -4,10 +4,13 @@ import './style.css';
 
 // const MAX_MEALS = 6;
 function MealDetailsCards() {
+  const { state } = useContext(Context);
   const { mealRecomendations } = useContext(Context);
   const MAX_SEC_CAROUSEL = 4;
   const MIN_THIRD_CAROUSEL = 3;
   const MAX_THIRD_CAROUSEL = 6;
+
+  console.log(state);
 
   return (
     <div className="container-fluid">

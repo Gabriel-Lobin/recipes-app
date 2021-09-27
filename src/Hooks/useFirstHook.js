@@ -20,7 +20,7 @@ const useFirstHook = () => {
         allMeals: await func.getMeal(variables.mealByName),
         mealCategories: await func.getMealCategory(variables.mealCategory),
         drinksCategories: await func.getDrinkCategory(variables.drinkCategory),
-        apiRandom: '',
+        apiRandom: await func.getRandomMeal(variables.randomMealAPI),
         shouldCallApi: false,
         firstCall: 1,
       });

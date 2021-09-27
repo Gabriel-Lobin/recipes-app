@@ -9,6 +9,7 @@ const START_ARRAY_MEASURE = 20;
 function MealDetailsIngredients() {
   const goTo = useHistory();
   const { mealDetails } = useContext(Context);
+  const { state } = useContext(Context);
 
   const ingredients = Object.values(mealDetails);
   const ingredientsArray = [];
@@ -28,6 +29,8 @@ function MealDetailsIngredients() {
   if (ingredients.length > 0) {
     createArrayIngredients();
   }
+
+  console.log(state);
 
   return (
     <>
