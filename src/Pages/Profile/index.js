@@ -20,6 +20,7 @@ function Profile() {
       <div className="profile-body">
         <h2 data-testid="profile-email">
           {email}
+          email@mail.com
         </h2>
 
         <button
