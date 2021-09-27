@@ -11,10 +11,7 @@ function DrinkDetailsIngredients() {
   const { drinkDetails } = useContext(Context);
 
   const ingredients = Object.values(drinkDetails);
-  // const ingredientsKeys = Object.keys(drinkDetails);
-  // const ingredientsValues = Object.values(drinkDetails);
-  // console.log(ingredientsKeys);
-  // console.log(ingredientsValues);
+
   const ingredientsArray2 = [];
 
   const createArrayIngredients = () => {
