@@ -32,12 +32,13 @@ function MealDetails({ match: { params: { id } }, location: { pathname } }) {
     name: mealDetails.strMeal,
     image: mealDetails.strMealThumb,
   };
-
+  const doneRecipe = localStorage.getItem('doneRecipes');
   const meals = {
     [mealDetails.idMeal]: ingredientsArray,
   };
 
   MountMealDetails(id);
+  console.log(goTo);
   return (
     <div className="meal-body">
       <img
@@ -99,21 +100,26 @@ function MealDetails({ match: { params: { id } }, location: { pathname } }) {
       />
 
       <MealDetailsCards />
-      <button
-        type="button"
-        className="btn btn-danger"
-        data-testid="start-recipe-btn"
-        onClick={ () => {
-          goTo.push(`/comidas/${id}/in-progress`);
-          const getInProgressStorage = JSON
-            .parse(localStorage.getItem('inProgressRecipes'));
-          localStorage
-            .setItem('inProgressRecipes', JSON
-              .stringify({ ...getInProgressStorage, meals }));
-        } }
-      >
-        {continueRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
-      </button>
+      {
+        !doneRecipe
+        && (
+          <button
+            type="button"
+            className="btn btn-danger"
+            data-testid="start-recipe-btn"
+            onClick={ () => {
+              goTo.push(`/comidas/${id}/in-progress`);
+              const getInProgressStorage = JSON
+                .parse(localStorage.getItem('inProgressRecipes'));
+              localStorage
+                .setItem('inProgressRecipes', JSON
+                  .stringify({ ...getInProgressStorage, meals }));
+            } }
+          >
+            {continueRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
+          </button>
+        )
+      }
     </div>
   );
 }

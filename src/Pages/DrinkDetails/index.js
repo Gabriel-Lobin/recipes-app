@@ -21,7 +21,7 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
   // load para aparecer "Link Copiado!"
   const [load, setLoad] = useState(false);
   // const LOAD_TIMER = 1800;
-
+  const doneRecipe = localStorage.getItem('doneRecipes');
   const goTo = useHistory();
 
   const drinkToLocalStorage = {
@@ -37,7 +37,7 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
   const cocktails = {
     [drinkDetails.idDrink]: ingredientsArray,
   };
-
+  console.log(doneRecipe);
   MountDrinkDetails(id);
   return (
     <div className="meal-body">
@@ -92,22 +92,28 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
       <DrinkDetailsIngredients ingredientsArray={ ingredientsArray } />
       <p data-testid="instructions">{ drinkDetails.strInstructions }</p>
       <DrinkDetailsCards />
-      <button
-        type="button"
-        className="btn btn-danger"
-        id="start-recipe"
-        data-testid="start-recipe-btn"
-        onClick={ () => {
-          goTo.push(`/bebidas/${id}/in-progress`);
-          const getInProgressStorage = JSON
-            .parse(localStorage.getItem('inProgressRecipes'));
-          localStorage
-            .setItem('inProgressRecipes', JSON
-              .stringify({ ...getInProgressStorage, cocktails }));
-        } }
-      >
-        {continueRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
-      </button>
+      {
+        !doneRecipe
+        && (
+
+          <button
+            type="button"
+            className="btn btn-danger"
+            id="start-recipe"
+            data-testid="start-recipe-btn"
+            onClick={ () => {
+              goTo.push(`/bebidas/${id}/in-progress`);
+              const getInProgressStorage = JSON
+                .parse(localStorage.getItem('inProgressRecipes'));
+              localStorage
+                .setItem('inProgressRecipes', JSON
+                  .stringify({ ...getInProgressStorage, cocktails }));
+            } }
+          >
+            {continueRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
+          </button>
+        )
+      }
     </div>
   );
 }

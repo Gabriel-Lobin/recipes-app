@@ -38,11 +38,14 @@ export default function MountDrinkDetails(drinkIdPage) {
         localStorage.setItem('favoriteRecipes', '[]');
       }
       const getInProgressStorage = localStorage.getItem('inProgressRecipes');
-      if (getInProgressStorage === null) {
+      if (getInProgressStorage === null || getInProgressStorage.length < 1) {
         localStorage.setItem('inProgressRecipes', JSON.stringify(recipeInProgress));
       }
       const getInProgressStorageParse = JSON
         .parse(localStorage.getItem('inProgressRecipes'));
+      console.log(getInProgressStorage);
+      console.log(getInProgressStorageParse);
+
       const inProgressKeys = Object.keys(getInProgressStorageParse.cocktails);
       if (inProgressKeys[0] === drinkDetails.idDrink) {
         setContinueRecipe(true);
