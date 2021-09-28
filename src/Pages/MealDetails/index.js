@@ -13,11 +13,14 @@ import './styles.css';
 const copy = require('clipboard-copy');
 
 function MealDetails({ match: { params: { id } }, location: { pathname } }) {
-  const { mealDetails, favoriteIcon, setFavoriteIcon } = useContext(Context);
+  const { mealDetails, favoriteIcon,
+    setFavoriteIcon, continueRecipe } = useContext(Context);
 
+  const ingredientsArray = [];
+
+  // load para aparecer "Link Copiado!"
   const [load, setLoad] = useState(false);
   // const LOAD_TIMER = 1800;
-
   const goTo = useHistory();
 
   const mealToLocalStorage = {
@@ -29,8 +32,13 @@ function MealDetails({ match: { params: { id } }, location: { pathname } }) {
     name: mealDetails.strMeal,
     image: mealDetails.strMealThumb,
   };
+  const doneRecipe = localStorage.getItem('doneRecipes');
+  const meals = {
+    [mealDetails.idMeal]: ingredientsArray,
+  };
 
   MountMealDetails(id);
+  console.log(goTo);
   return (
     <div className="meal-body">
       <img
@@ -77,7 +85,8 @@ function MealDetails({ match: { params: { id } }, location: { pathname } }) {
       { load && <p>Link copiado!</p>}
       <p data-testid="recipe-category">{ mealDetails.strCategory }</p>
 
-      <MealDetailsIngredients />
+      <MealDetailsIngredients ingredientsArray={ ingredientsArray } />
+
       <p data-testid="instructions">{ mealDetails.strInstructions }</p>
       <iframe
         src={ mealDetails.strYoutube
@@ -91,14 +100,26 @@ function MealDetails({ match: { params: { id } }, location: { pathname } }) {
       />
 
       <MealDetailsCards />
-      <button
-        type="button"
-        className="btn btn-danger"
-        data-testid="start-recipe-btn"
-        onClick={ () => goTo.push(`/comidas/${id}/in-progress`) }
-      >
-        Iniciar Receita
-      </button>
+      {
+        !doneRecipe
+        && (
+          <button
+            type="button"
+            className="btn btn-danger"
+            data-testid="start-recipe-btn"
+            onClick={ () => {
+              goTo.push(`/comidas/${id}/in-progress`);
+              const getInProgressStorage = JSON
+                .parse(localStorage.getItem('inProgressRecipes'));
+              localStorage
+                .setItem('inProgressRecipes', JSON
+                  .stringify({ ...getInProgressStorage, meals }));
+            } }
+          >
+            {continueRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
+          </button>
+        )
+      }
     </div>
   );
 }

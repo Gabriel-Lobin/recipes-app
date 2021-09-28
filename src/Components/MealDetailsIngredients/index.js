@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import Context from '../../Context/Context';
@@ -6,12 +7,12 @@ const ARRAY_NUMBER = 29;
 const START_ARRAY_NUMBER = 9;
 const START_ARRAY_MEASURE = 20;
 
-function MealDetailsIngredients() {
+function MealDetailsIngredients({ ingredientsArray }) {
   const goTo = useHistory();
+
   const { mealDetails } = useContext(Context);
 
   const ingredients = Object.values(mealDetails);
-  const ingredientsArray = [];
 
   const createArrayIngredients = () => {
     for (let index = START_ARRAY_NUMBER; index < ARRAY_NUMBER; index += 1) {
@@ -25,10 +26,12 @@ function MealDetailsIngredients() {
     }
   };
 
-  if (ingredients.length > 0) {
-    createArrayIngredients();
+  function callIngredientsArray() {
+    if (ingredients.length > 0) {
+      createArrayIngredients();
+    }
   }
-
+  callIngredientsArray();
   return (
     <>
       <h2>Ingredients</h2>
@@ -66,5 +69,9 @@ function MealDetailsIngredients() {
     </>
   );
 }
+
+MealDetailsIngredients.propTypes = {
+  ingredientsArray: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default MealDetailsIngredients;

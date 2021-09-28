@@ -1,54 +1,62 @@
 import React from 'react';
-import variables from '../Global';
+import vars from '../Global';
+
+const beTwelve = (param) => param.reduce((acc, e, i) => {
+  if (i < vars.TWELVE) {
+    acc.push(e);
+  }
+  return acc;
+}, []);
 
 const fetchApi2 = async () => {
-  const getApi = await fetch(variables.apiUrl);
+  const getApi = await fetch(vars.apiUrl);
   const { results } = await getApi.json();
   return results;
 };
 
+const flexFetchForMeals = async (param, param2, param3) => {
+  const getApi = await fetch(`${vars.mealApiBody}${param}.php?${param2}=${param3}`);
+  console.log(`${vars.mealApiBody}${param}.php?${param2}=${param3}`);
+  const { results } = await getApi.json();
+  return results;
+  // return beTwelve(results.meals);
+};
+
 const getMeal = async () => {
-  const getApi = await fetch(variables.mealByName);
+  const getApi = await fetch(vars.mealByName);
   const results = await getApi.json();
   return results;
 };
 
 const getRandomMeal = async () => {
-  const getApi = await fetch(variables.randomMealAPI);
+  const getApi = await fetch(vars.randomMealAPI);
   const results = await getApi.json();
   return results;
 };
 
 const getDrink = async () => {
-  const getApi = await fetch(variables.drinkByName);
+  const getApi = await fetch(vars.drinkByName);
   const results = await getApi.json();
   return results;
 };
 
 const getMealCategory = async () => {
-  const getApi = await fetch(variables.mealCategory);
+  const getApi = await fetch(vars.mealCategory);
   const results = await getApi.json();
   return results;
 };
 
 const getDrinkCategory = async () => {
-  const getApi = await fetch(variables.drinkCategory);
+  const getApi = await fetch(vars.drinkCategory);
   const results = await getApi.json();
   return results;
 };
 
 const getRandomDrink = async () => {
-  const getApi = await fetch(variables.randomDrinksAPI);
+  const getApi = await fetch(vars.randomDrinksAPI);
   const results = await getApi.json();
   return results;
 };
-
-const beTwelve = (param) => param.reduce((acc, e, i) => {
-  if (i < variables.TWELVE) {
-    acc.push(e);
-  }
-  return acc;
-}, []);
 
 const filterCategory = async (param, param2, param3 = false) => {
   const getApi = await fetch(`${param}${param2}`);
@@ -76,10 +84,10 @@ const byTargetValue = (param, param2, param3) => {
 };
 
 const alertIfTwoLetters = (param, param2) => {
-  if (variables.drinkByLetter === param && param2.length > 1) {
+  if (vars.drinkByLetter === param && param2.length > 1) {
     global.alert('Sua busca deve conter somente 1 (um) caracter');
   }
-  if (variables.mealByLetter === param && param2.length > 1) {
+  if (vars.mealByLetter === param && param2.length > 1) {
     global.alert('Sua busca deve conter somente 1 (um) caracter');
   }
 };
@@ -89,12 +97,12 @@ const goToDetails = (param, param2) => {
   if (drinks && drinks.length === 1) {
     const [a] = drinks;
     const { idDrink } = a;
-    param2.push(`bebidas/${idDrink}`);
+    param2.push(`${idDrink}`);
   }
   if (meals && meals.length === 1) {
     const [a] = meals;
     const { idMeal } = a;
-    param2.push(`comidas/${idMeal}`);
+    param2.push(`${idMeal}`);
   }
 };
 
@@ -176,6 +184,16 @@ const fetchApi = async (param, param2) => {
   }
 };
 
+const shouldFetch = async (param) => {
+  try {
+    const getApi = await fetch(`${param}`);
+    const results = await getApi.json();
+    return results;
+  } catch (e) {
+    // console.log('I am fetchApi: ', e);
+  }
+};
+
 const profileLocalStorage = (param) => {
   if (param === 'make') {
     localStorage.setItem('user', '{ "email": "email@mail.com" }');
@@ -196,6 +214,8 @@ const profileLocalStorage = (param) => {
 };
 
 const services = {
+  flexFetchForMeals,
+  shouldFetch,
   byKey,
   byTargetValue,
   fetchApi,
