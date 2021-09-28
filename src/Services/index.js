@@ -97,12 +97,12 @@ const goToDetails = (param, param2) => {
   if (drinks && drinks.length === 1) {
     const [a] = drinks;
     const { idDrink } = a;
-    param2.push(`bebidas/${idDrink}`);
+    param2.push(`/bebidas/${idDrink}`);
   }
   if (meals && meals.length === 1) {
     const [a] = meals;
     const { idMeal } = a;
-    param2.push(`comidas/${idMeal}`);
+    param2.push(`/comidas/${idMeal}`);
   }
 };
 
