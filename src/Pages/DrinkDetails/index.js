@@ -9,7 +9,11 @@ import FavAndShareBtn from '../../Components/FavoriteAndShareBtn/FavoriteAndShar
 import './style.css';
 
 function DrinkDetails({ match: { params: { id } }, location }) {
-  const { drinkDetails } = useContext(Context);
+  const { drinkDetails, continueRecipe } = useContext(Context);
+
+  const doneRecipe = localStorage.getItem('doneRecipes');
+
+  const ingredientsArray = [];
 
   const goTo = useHistory();
 
@@ -23,6 +27,10 @@ function DrinkDetails({ match: { params: { id } }, location }) {
     image: drinkDetails.strDrinkThumb,
   };
 
+  const cocktails = {
+    [drinkDetails.idDrink]: ingredientsArray,
+  };
+  console.log(doneRecipe);
   MountDrinkDetails(id);
   return (
     <div className="meal-body">
@@ -41,18 +49,31 @@ function DrinkDetails({ match: { params: { id } }, location }) {
         {`${drinkDetails.strCategory} ${drinkDetails.strAlcoholic}`}
       </p>
 
-      <DrinkDetailsIngredients />
+      <DrinkDetailsIngredients ingredientsArray={ ingredientsArray } />
       <p data-testid="instructions">{ drinkDetails.strInstructions }</p>
       <DrinkDetailsCards />
-      <button
-        type="button"
-        className="btn btn-danger"
-        id="start-recipe"
-        data-testid="start-recipe-btn"
-        onClick={ () => goTo.push(`/bebidas/${id}/in-progress`) }
-      >
-        Iniciar Receita
-      </button>
+      {
+        !doneRecipe
+        && (
+
+          <button
+            type="button"
+            className="btn btn-danger"
+            id="start-recipe"
+            data-testid="start-recipe-btn"
+            onClick={ () => {
+              goTo.push(`/bebidas/${id}/in-progress`);
+              const getInProgressStorage = JSON
+                .parse(localStorage.getItem('inProgressRecipes'));
+              localStorage
+                .setItem('inProgressRecipes', JSON
+                  .stringify({ ...getInProgressStorage, cocktails }));
+            } }
+          >
+            {continueRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
+          </button>
+        )
+      }
     </div>
   );
 }

@@ -1,13 +1,13 @@
+import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import Context from '../../Context/Context';
 import { DrinksIngredients, DrinksMeasures } from '../../utils/compare';
 
-function DrinkDetailsIngredients() {
+function DrinkDetailsIngredients({ ingredientsArray }) {
   const goTo = useHistory();
-  const { drinkDetails } = useContext(Context);
 
-  const ingredientsArray2 = [];
+  const { drinkDetails } = useContext(Context);
 
   const createArrayIngredients = () => {
     for (let index = 0; index < DrinksIngredients.length; index += 1) {
@@ -16,7 +16,7 @@ function DrinkDetailsIngredients() {
       const ingredientName = drinkDetails[positionIngredient];
       const ingredientMeasure = drinkDetails[positionMeasure];
       if (ingredientName !== '' && ingredientName !== null) {
-        ingredientsArray2.push(`${ingredientName} ${ingredientMeasure}`);
+        ingredientsArray.push(`${ingredientName} ${ingredientMeasure}`);
       }
     }
   };
@@ -32,7 +32,7 @@ function DrinkDetailsIngredients() {
         goTo.location.pathname.includes('/in-progress')
           ? (
             <div className="checkbox-inprogress">
-              {ingredientsArray2.map((ingredient, index) => (
+              {ingredientsArray.map((ingredient, index) => (
                 <label
                   data-testid={ `${index}-ingredient-step` }
                   key={ index }
@@ -48,7 +48,7 @@ function DrinkDetailsIngredients() {
               ))}
             </div>
           )
-          : ingredientsArray2.map((ingredient, index) => (
+          : ingredientsArray.map((ingredient, index) => (
             <p
               key={ index }
               data-testid={ `${index}-ingredient-name-and-measure` }
@@ -58,9 +58,12 @@ function DrinkDetailsIngredients() {
             </p>
           ))
       }
-
     </>
   );
 }
+
+DrinkDetailsIngredients.propTypes = {
+  ingredientsArray: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default DrinkDetailsIngredients;

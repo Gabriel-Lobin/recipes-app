@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
 import Context from '../../Context/Context';
 import './style.css';
@@ -8,6 +8,8 @@ import FavAndShareBtn from '../../Components/FavoriteAndShareBtn/FavoriteAndShar
 
 function MakingMeals({ match: { params: { id } }, location }) {
   const { mealDetails } = useContext(Context);
+
+  const ingredientsArray = [];
 
   const mealToLocalStorage = {
     id: mealDetails.idMeal,
@@ -30,7 +32,7 @@ function MakingMeals({ match: { params: { id } }, location }) {
         location={ location }
       />
       <p data-testid="recipe-category">{mealDetails.strCategory}</p>
-      <MealDetailsIngredients />
+      <MealDetailsIngredients ingredientsArray={ ingredientsArray } />
       <p data-testid="instructions">{mealDetails.strInstructions}</p>
       <button
         data-testid="finish-recipe-btn"

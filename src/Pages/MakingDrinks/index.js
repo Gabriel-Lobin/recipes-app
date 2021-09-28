@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import Context from '../../Context/Context';
 import MountDrinkDetails from '../../Context/customHooks/MountDrinkDetails';
 import DrinkDetailsIngredients from '../../Components/DrinkDetailsIngredients';
@@ -8,6 +8,8 @@ import FavAndShareBtn from '../../Components/FavoriteAndShareBtn/FavoriteAndShar
 
 function MakingDrinks({ match: { params: { id } }, location }) {
   const { drinkDetails } = useContext(Context);
+
+  const ingredientsArray = [];
 
   const drinkToLocalStorage = {
     id: drinkDetails.idDrink,
@@ -30,7 +32,7 @@ function MakingDrinks({ match: { params: { id } }, location }) {
         location={ location }
       />
       <p data-testid="recipe-category">{drinkDetails.strCategory}</p>
-      <DrinkDetailsIngredients />
+      <DrinkDetailsIngredients ingredientsArray={ ingredientsArray } />
       <p data-testid="instructions">{drinkDetails.strInstructions}</p>
       <button
         data-testid="finish-recipe-btn"

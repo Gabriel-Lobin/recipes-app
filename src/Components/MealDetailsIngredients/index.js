@@ -1,13 +1,16 @@
+import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import Context from '../../Context/Context';
 import { MealsIngredients, MealsMeasure } from '../../utils/compare';
 
-function MealDetailsIngredients() {
+function MealDetailsIngredients({ ingredientsArray }) {
   const goTo = useHistory();
-  const { mealDetails } = useContext(Context);
 
-  const ingredientsArray = [];
+  const { mealDetails } = useContext(Context);
+  
+  const ingredients = Object.values(mealDetails);
+
 
   const createArrayIngredients = () => {
     for (let index = 0; index < MealsIngredients.length; index += 1) {
@@ -61,5 +64,9 @@ function MealDetailsIngredients() {
     </>
   );
 }
+
+MealDetailsIngredients.propTypes = {
+  ingredientsArray: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default MealDetailsIngredients;

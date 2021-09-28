@@ -17,6 +17,7 @@ import MakingDrinks from '../MakingDrinks/index';
 import MakingMeals from '../MakingMeals/index';
 import DoneRecipes from '../DoneRecipes/index';
 import FavoriteRecipes from '../FavoriteRecipes/index';
+import NotFound from '../NotFound/index';
 
 function Routes() {
   return (
@@ -43,6 +44,7 @@ function Routes() {
       <Route exact path="/comidas/:id/in-progress" component={ MakingMeals } />
       <Route exact path="/receitas-feitas" component={ DoneRecipes } />
       <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
+      <Route exact path="/explorar/bebidas/area" component={ NotFound } />
     </Switch>
   );
 }

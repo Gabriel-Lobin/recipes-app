@@ -16,7 +16,9 @@ function Provider({ children }) {
   const [mealRecomendations, setMealRecomendations] = useState([]);
   const [drinkDetails, setDrinkDetails] = useState([]);
   const [drinkRecomendations, setDrinkRecomendations] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [favoriteIcon, setFavoriteIcon] = useState(false);
+  const [continueRecipe, setContinueRecipe] = useState(false);
   const [inProgressRecipes, setInProgressRecipes] = useState({
     cocktails: {},
     meals: {},
@@ -41,10 +43,14 @@ function Provider({ children }) {
     setDrinkDetails,
     drinkRecomendations,
     setDrinkRecomendations,
+    ingredients,
+    setIngredients,
     favoriteIcon,
     setFavoriteIcon,
     inProgressRecipes,
     setInProgressRecipes,
+    continueRecipe,
+    setContinueRecipe,
   };
 
   return (
