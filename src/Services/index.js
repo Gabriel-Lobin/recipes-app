@@ -195,6 +195,10 @@ const profileLocalStorage = (param) => {
   }
 };
 
+const setLocalStorage = () => {
+ console.log('ignora');
+};
+
 const services = {
   byKey,
   byTargetValue,
@@ -215,6 +219,7 @@ const services = {
   getDrink,
   getMealCategory,
   getDrinkCategory,
+  setLocalStorage,
 };
 
 export default services;

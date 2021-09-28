@@ -17,6 +17,10 @@ function Provider({ children }) {
   const [drinkDetails, setDrinkDetails] = useState([]);
   const [drinkRecomendations, setDrinkRecomendations] = useState([]);
   const [favoriteIcon, setFavoriteIcon] = useState(false);
+  const [inProgressRecipes, setInProgressRecipes] = useState({
+    cocktails: {},
+    meals: {},
+  });
 
   const context = {
     state,
@@ -39,6 +43,8 @@ function Provider({ children }) {
     setDrinkRecomendations,
     favoriteIcon,
     setFavoriteIcon,
+    inProgressRecipes,
+    setInProgressRecipes,
   };
 
   return (
