@@ -11,9 +11,11 @@ import './styles.css';
 function MealDetails({ match: { params: { id } }, location }) {
   const { mealDetails, continueRecipe } = useContext(Context);
 
-  const goTo = useHistory();
+  const doneRecipe = localStorage.getItem('doneRecipes');
 
   const ingredientsArray = [];
+
+  const goTo = useHistory();
 
   const mealToLocalStorage = {
     id: mealDetails.idMeal,
@@ -25,13 +27,12 @@ function MealDetails({ match: { params: { id } }, location }) {
     image: mealDetails.strMealThumb,
   };
 
-  const doneRecipe = localStorage.getItem('doneRecipes');
   const meals = {
-    [mealDetails.idMeal]: ingredientsArray,
+    [mealDetails.idMeal]: [],
   };
 
   MountMealDetails(id);
-  console.log(goTo);
+
   return (
     <div className="meal-body">
       <img

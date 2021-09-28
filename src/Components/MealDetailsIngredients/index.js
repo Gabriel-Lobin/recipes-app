@@ -8,9 +8,6 @@ function MealDetailsIngredients({ ingredientsArray }) {
   const goTo = useHistory();
 
   const { mealDetails } = useContext(Context);
-  
-  const ingredients = Object.values(mealDetails);
-
 
   const createArrayIngredients = () => {
     for (let index = 0; index < MealsIngredients.length; index += 1) {

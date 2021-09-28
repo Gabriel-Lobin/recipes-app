@@ -28,10 +28,11 @@ function DrinkDetails({ match: { params: { id } }, location }) {
   };
 
   const cocktails = {
-    [drinkDetails.idDrink]: ingredientsArray,
+    [drinkDetails.idDrink]: [],
   };
-  console.log(doneRecipe);
+
   MountDrinkDetails(id);
+
   return (
     <div className="meal-body">
       <img
