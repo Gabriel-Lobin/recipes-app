@@ -5,10 +5,7 @@ import useFirstHook from '../Hooks/useFirstHook';
 
 function Provider({ children }) {
   const [state, setState] = useFirstHook();
-  const [user, setUser] = useState({
-    email: '',
-    password: '',
-  });
+  const [user, setUser] = useState({ email: '', password: '' });
   const [title, setTitle] = useState('');
   const [searchButton, setSearchButton] = useState(false);
   const [randomMeals, setRandomMeals] = useState([]);
@@ -19,10 +16,7 @@ function Provider({ children }) {
   const [ingredients, setIngredients] = useState([]);
   const [favoriteIcon, setFavoriteIcon] = useState(false);
   const [continueRecipe, setContinueRecipe] = useState(false);
-  const [inProgressRecipes, setInProgressRecipes] = useState({
-    cocktails: {},
-    meals: {},
-  });
+  const [inProgressRecipes, setInProgressRecipe] = useState({ cocktails: {}, meals: {} });
 
   const context = {
     state,
@@ -48,7 +42,7 @@ function Provider({ children }) {
     favoriteIcon,
     setFavoriteIcon,
     inProgressRecipes,
-    setInProgressRecipes,
+    setInProgressRecipe,
     continueRecipe,
     setContinueRecipe,
   };

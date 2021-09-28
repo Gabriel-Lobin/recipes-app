@@ -25,6 +25,7 @@ function MakingMeals({ match: { params: { id } }, location }) {
   };
 
   MountMealDetails(id);
+
   return (
     <div key={ mealDetails.idMeal }>
       <img data-testid="recipe-photo" src={ mealDetails.strMealThumb } alt="food" />
