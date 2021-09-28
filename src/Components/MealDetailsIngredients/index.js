@@ -1,31 +1,27 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import Context from '../../Context/Context';
-
-const ARRAY_NUMBER = 29;
-const START_ARRAY_NUMBER = 9;
-const START_ARRAY_MEASURE = 20;
+import { MealsIngredients, MealsMeasure } from '../../utils/compare';
 
 function MealDetailsIngredients() {
   const goTo = useHistory();
   const { mealDetails } = useContext(Context);
 
-  const ingredients = Object.values(mealDetails);
   const ingredientsArray = [];
 
   const createArrayIngredients = () => {
-    for (let index = START_ARRAY_NUMBER; index < ARRAY_NUMBER; index += 1) {
-      const position = index + START_ARRAY_MEASURE;
-      const ingredientName = ingredients[index];
-      const ingredientMeasure = ingredients[position];
-
+    for (let index = 0; index < MealsIngredients.length; index += 1) {
+      const positionIngredient = MealsIngredients[index];
+      const positionMeasure = MealsMeasure[index];
+      const ingredientName = mealDetails[positionIngredient];
+      const ingredientMeasure = mealDetails[positionMeasure];
       if (ingredientName !== '' && ingredientName !== null) {
         ingredientsArray.push(`${ingredientName} ${ingredientMeasure}`);
       }
     }
   };
 
-  if (ingredients.length > 0) {
+  if (Object.keys(mealDetails).length > 0) {
     createArrayIngredients();
   }
 
@@ -40,7 +36,7 @@ function MealDetailsIngredients() {
                 <label
                   data-testid={ `${index}-ingredient-step` }
                   key={ index }
-                  htmlFor={ ingredients }
+                  htmlFor={ ingredient }
                 >
                   <input
                     type="checkbox"
@@ -62,7 +58,6 @@ function MealDetailsIngredients() {
             </h6>
           ))
       }
-
     </>
   );
 }
