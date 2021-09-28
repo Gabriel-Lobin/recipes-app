@@ -1,12 +1,12 @@
 import { useContext, useEffect } from 'react';
 import Context from '../Context';
 
-const organizeDrinkState = (id, inProgressRecipes, inProgressRecipes, setInProgressRecipe) => {
-
+const organizeDrinkState = (id, inProgressRecipes, setInProgressRecipe) => {
+  console.log(id, inProgressRecipes, setInProgressRecipe);
 };
 
-const organizeMealState = (id, inProgressRecipes, inProgressRecipes, setInProgressRecipe) => {
-
+const organizeMealState = (id, inProgressRecipes, setInProgressRecipe) => {
+  console.log(id, inProgressRecipes, setInProgressRecipe);
 };
 
 export default LocalStorageProgress = (typeState, id) => {
@@ -15,9 +15,9 @@ export default LocalStorageProgress = (typeState, id) => {
     const StorageProgress = localStorage.getItem('inProgressRecipes');
     if (StorageProgress !== null) {
       if (typeState === 'drink') {
-        organizeDrinkState(id, inProgressRecipes, inProgressRecipes, setInProgressRecipe);
+        organizeDrinkState(id, inProgressRecipes, setInProgressRecipe);
       } else if (typeState === 'meal') {
-        organizeMealState(id, inProgressRecipes, inProgressRecipes, setInProgressRecipe);
+        organizeMealState(id, inProgressRecipes, setInProgressRecipe);
       }
     }
   }, []);
