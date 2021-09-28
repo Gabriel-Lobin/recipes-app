@@ -162,7 +162,6 @@ const alertIfCantFind = ({ meals = true, drinks = true }) => {
     global.alert(
       'Sinto muito, não encontramos nenhuma receita para esses filtros.',
     );
-    // // console.log(meals, drinks);
   }
 };
 
@@ -176,7 +175,6 @@ const fetchApi = async (param, param2) => {
   try {
     const getApi = await fetch(`${param}${param2}`);
     const results = await getApi.json();
-    // console.log('I am fetchApi: ', results);
     alertIfCantFind(results);
     return results;
   } catch (e) {
@@ -214,7 +212,7 @@ const profileLocalStorage = (param) => {
 };
 
 const setLocalStorage = () => {
-  console.log('ignora');
+
 };
 
 const services = {

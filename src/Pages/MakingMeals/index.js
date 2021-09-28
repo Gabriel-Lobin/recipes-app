@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router';
 import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
 import Context from '../../Context/Context';
 import './style.css';
@@ -8,6 +9,8 @@ import FavAndShareBtn from '../../Components/FavoriteAndShareBtn/FavoriteAndShar
 
 function MakingMeals({ match: { params: { id } }, location }) {
   const { mealDetails } = useContext(Context);
+
+  const goTo = useHistory();
 
   const ingredientsArray = [];
 
@@ -32,9 +35,12 @@ function MakingMeals({ match: { params: { id } }, location }) {
         location={ location }
       />
       <p data-testid="recipe-category">{mealDetails.strCategory}</p>
-      <MealDetailsIngredients ingredientsArray={ ingredientsArray } />
+      <MealDetailsIngredients
+        ingredientsArray={ ingredientsArray }
+      />
       <p data-testid="instructions">{mealDetails.strInstructions}</p>
       <button
+        onClick={ () => goTo.push('/receitas-feitas') }
         data-testid="finish-recipe-btn"
         type="button"
       >

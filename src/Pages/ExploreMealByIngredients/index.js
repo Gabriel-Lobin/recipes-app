@@ -31,7 +31,7 @@ function ExploreMealByIngredients() {
                   .then((meals) => {
                     setRandomMeals(func.beTwelve(meals));
                   });
-                goTo.push('/comidas/');
+                goTo.push('/comidas');
               } }
               key={ index }
               type="button"

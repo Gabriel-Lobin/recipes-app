@@ -15,7 +15,9 @@ function MealDetailsIngredients({ ingredientsArray }) {
       const positionMeasure = MealsMeasure[index];
       const ingredientName = mealDetails[positionIngredient];
       const ingredientMeasure = mealDetails[positionMeasure];
-      if (ingredientName !== '' && ingredientName !== null) {
+      if (ingredientMeasure === null && ingredientName !== null) {
+        ingredientsArray.push(ingredientName);
+      } else if (ingredientName !== '' && ingredientName !== null) {
         ingredientsArray.push(`${ingredientName} ${ingredientMeasure}`);
       }
     }

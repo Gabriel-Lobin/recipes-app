@@ -66,9 +66,17 @@ function DrinkDetails({ match: { params: { id } }, location }) {
               goTo.push(`/bebidas/${id}/in-progress`);
               const getInProgressStorage = JSON
                 .parse(localStorage.getItem('inProgressRecipes'));
-              localStorage
-                .setItem('inProgressRecipes', JSON
-                  .stringify({ ...getInProgressStorage, cocktails }));
+              if (!getInProgressStorage.cocktails[cocktails]) {
+                localStorage
+                  .setItem('inProgressRecipes', JSON
+                    .stringify({
+                      ...getInProgressStorage,
+                      cocktails: {
+                        ...getInProgressStorage.cocktails,
+                        ...cocktails,
+                      },
+                    }));
+              }
             } }
           >
             {continueRecipe ? 'Continuar Receita' : 'Iniciar Receita'}

@@ -74,9 +74,17 @@ function MealDetails({ match: { params: { id } }, location }) {
               goTo.push(`/comidas/${id}/in-progress`);
               const getInProgressStorage = JSON
                 .parse(localStorage.getItem('inProgressRecipes'));
-              localStorage
-                .setItem('inProgressRecipes', JSON
-                  .stringify({ ...getInProgressStorage, meals }));
+              if (!getInProgressStorage.meals[meals]) {
+                localStorage
+                  .setItem('inProgressRecipes', JSON
+                    .stringify({
+                      ...getInProgressStorage,
+                      meals: {
+                        ...getInProgressStorage.meals,
+                        ...meals,
+                      },
+                    }));
+              }
             } }
           >
             {continueRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
