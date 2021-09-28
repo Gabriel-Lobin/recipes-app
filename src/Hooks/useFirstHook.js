@@ -23,6 +23,8 @@ const useFirstHook = () => {
         apiRandom: await func.shouldFetch(variables.randomMealAPI),
         listOfIngredientsMeal: await func.shouldFetch(variables.listOfMealIngredients),
         listOfIngredientsDrink: await func.shouldFetch(variables.listOfDrinkIngredients),
+        mealsByArea: await func.shouldFetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list'),
+        // mealsByArea: await func.flexFetchForMeals('list', 'a', 'list'),
         shouldCallApi: false,
         firstCall: 1,
       });

@@ -7,6 +7,7 @@ const mealsByCategory = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 const mealRandom = 'https://www.themealdb.com/api/json/v1/1/random.php';
 const mealId = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const listOfMealIngredients = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+const mealApiBody = 'https://www.themealdb.com/api/json/v1/1/';
 
 const drinkByIngredient = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 const drinkByName = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -25,6 +26,7 @@ const drinkRandom = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 const drinkId = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
 const variables = {
+  mealApiBody,
   listOfMealIngredients,
   listOfDrinkIngredients,
   meals,
