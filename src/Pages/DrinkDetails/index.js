@@ -13,8 +13,12 @@ import './style.css';
 const copy = require('clipboard-copy');
 
 function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
-  const { drinkDetails, favoriteIcon, setFavoriteIcon } = useContext(Context);
+  const { drinkDetails, favoriteIcon,
+    setFavoriteIcon, continueRecipe } = useContext(Context);
 
+  const ingredientsArray = [];
+
+  // load para aparecer "Link Copiado!"
   const [load, setLoad] = useState(false);
   // const LOAD_TIMER = 1800;
 
@@ -28,6 +32,10 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
     alcoholicOrNot: drinkDetails.strAlcoholic,
     name: drinkDetails.strDrink,
     image: drinkDetails.strDrinkThumb,
+  };
+
+  const cocktails = {
+    [drinkDetails.idDrink]: ingredientsArray,
   };
 
   MountDrinkDetails(id);
@@ -81,7 +89,7 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
         {`${drinkDetails.strCategory} ${drinkDetails.strAlcoholic}`}
       </p>
 
-      <DrinkDetailsIngredients />
+      <DrinkDetailsIngredients ingredientsArray={ ingredientsArray } />
       <p data-testid="instructions">{ drinkDetails.strInstructions }</p>
       <DrinkDetailsCards />
       <button
@@ -89,9 +97,16 @@ function DrinkDetails({ match: { params: { id } }, location: { pathname } }) {
         className="btn btn-danger"
         id="start-recipe"
         data-testid="start-recipe-btn"
-        onClick={ () => goTo.push(`/bebidas/${id}/in-progress`) }
+        onClick={ () => {
+          goTo.push(`/bebidas/${id}/in-progress`);
+          const getInProgressStorage = JSON
+            .parse(localStorage.getItem('inProgressRecipes'));
+          localStorage
+            .setItem('inProgressRecipes', JSON
+              .stringify({ ...getInProgressStorage, cocktails }));
+        } }
       >
-        Iniciar Receita
+        {continueRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
       </button>
     </div>
   );

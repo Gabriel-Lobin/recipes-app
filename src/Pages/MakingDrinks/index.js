@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router';
 import Context from '../../Context/Context';
 // import Footer from '../../Components/Footer/index';
 import ShareImg from '../../images/whiteHeartIcon.svg';
@@ -7,12 +7,11 @@ import FavoriteImg from '../../images/shareIcon.svg';
 import MountDrinkDetails from '../../Context/customHooks/MountDrinkDetails';
 import DrinkDetailsIngredients from '../../Components/DrinkDetailsIngredients';
 
-function MakingDrinks() {
+function MakingDrinks({ match: { params: { id } } }) {
   const { drinkDetails } = useContext(Context);
-  const { location: { pathname } } = useHistory();
-  MountDrinkDetails(
-    pathname.split('').filter((numb) => (Number(numb) || numb === 0)).join(''),
-  );
+
+  const ingredientsArray = [];
+  MountDrinkDetails(id);
   return (
     <div key={ drinkDetails.idDrink }>
       <img data-testid="recipe-photo" src={ drinkDetails.strDrinkThumb } alt="food" />
@@ -33,7 +32,7 @@ function MakingDrinks() {
         <img src={ ShareImg } alt="share" />
       </button>
       <p data-testid="recipe-category">{drinkDetails.strCategory}</p>
-      <DrinkDetailsIngredients />
+      <DrinkDetailsIngredients ingredientsArray={ ingredientsArray } />
       <p data-testid="instructions">{drinkDetails.strInstructions}</p>
       <button
         data-testid="finish-recipe-btn"
@@ -46,4 +45,14 @@ function MakingDrinks() {
   );
 }
 
+MakingDrinks.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
+};
 export default MakingDrinks;
