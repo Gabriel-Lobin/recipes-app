@@ -56,7 +56,6 @@ function DrinkDetails({ match: { params: { id } }, location }) {
       {
         !doneRecipe
         && (
-
           <button
             type="button"
             className="btn btn-danger"
