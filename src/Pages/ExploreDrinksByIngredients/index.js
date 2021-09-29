@@ -30,7 +30,7 @@ function ExploreDrinksByIngredients() {
                   .then((meals) => {
                     setRandomMeals(func.beTwelve(meals));
                   });
-                goTo.push('/bebidas/');
+                goTo.push('/bebidas');
               } }
               key={ index }
               type="button"

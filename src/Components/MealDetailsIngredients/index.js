@@ -2,36 +2,47 @@ import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import Context from '../../Context/Context';
-
-const ARRAY_NUMBER = 29;
-const START_ARRAY_NUMBER = 9;
-const START_ARRAY_MEASURE = 20;
+import { MealsIngredients, MealsMeasure } from '../../utils/compare';
+import func from '../../utils';
 
 function MealDetailsIngredients({ ingredientsArray }) {
   const goTo = useHistory();
+  const itemId = goTo.location.pathname.split('/');
 
-  const { mealDetails } = useContext(Context);
-
-  const ingredients = Object.values(mealDetails);
+  const { mealDetails, checkArray, setCheckArray } = useContext(Context);
 
   const createArrayIngredients = () => {
-    for (let index = START_ARRAY_NUMBER; index < ARRAY_NUMBER; index += 1) {
-      const position = index + START_ARRAY_MEASURE;
-      const ingredientName = ingredients[index];
-      const ingredientMeasure = ingredients[position];
-
-      if (ingredientName !== '' && ingredientName !== null) {
+    for (let index = 0; index < MealsIngredients.length; index += 1) {
+      const positionIngredient = MealsIngredients[index];
+      const positionMeasure = MealsMeasure[index];
+      const ingredientName = mealDetails[positionIngredient];
+      const ingredientMeasure = mealDetails[positionMeasure];
+      if (ingredientMeasure === null && ingredientName !== null) {
+        ingredientsArray.push(ingredientName);
+      } else if (ingredientName !== '' && ingredientName !== null) {
         ingredientsArray.push(`${ingredientName} ${ingredientMeasure}`);
       }
     }
   };
 
-  function callIngredientsArray() {
-    if (ingredients.length > 0) {
-      createArrayIngredients();
-    }
+  if (Object.keys(mealDetails).length > 0) {
+    createArrayIngredients();
   }
-  callIngredientsArray();
+
+  const checkedArray = [];
+  ingredientsArray.forEach((e, i) => {
+    const checked = JSON.parse(localStorage.getItem(`${e}`))
+      ? JSON.parse(localStorage.getItem(`${e}`)) : false;
+    checkedArray.push(checked);
+    if (checkArray.length < 1 && i + 1 === ingredientsArray.length) {
+      setCheckArray([...checkedArray]);
+    }
+  });
+
+  const block = {
+    checkedArray, setCheckArray, itemId,
+  };
+
   return (
     <>
       <h2>Ingredients</h2>
@@ -43,13 +54,9 @@ function MealDetailsIngredients({ ingredientsArray }) {
                 <label
                   data-testid={ `${index}-ingredient-step` }
                   key={ index }
-                  htmlFor={ ingredients }
+                  htmlFor={ ingredient }
                 >
-                  <input
-                    type="checkbox"
-                    name={ ingredient }
-                    id={ ingredient }
-                  />
+                  {func.inputCheckerDrinks(ingredient, index, block)}
                   {ingredient}
                 </label>
               ))}
@@ -65,7 +72,6 @@ function MealDetailsIngredients({ ingredientsArray }) {
             </h6>
           ))
       }
-
     </>
   );
 }

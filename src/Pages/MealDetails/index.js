@@ -1,26 +1,20 @@
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router';
 import MealDetailsCards from '../../Components/MealDetailsCards';
 import MealDetailsIngredients from '../../Components/MealDetailsIngredients';
 import Context from '../../Context/Context';
+import FavAndShareBtn from '../../Components/FavoriteAndShareBtn/FavoriteAndShareBtn';
 import MountMealDetails from '../../Context/customHooks/MountMealDetails';
-import NotFavoriteImg from '../../images/whiteHeartIcon.svg';
-import FavoriteImg from '../../images/blackHeartIcon.svg';
-import ShareImg from '../../images/shareIcon.svg';
 import './styles.css';
 
-const copy = require('clipboard-copy');
+function MealDetails({ match: { params: { id } }, location }) {
+  const { mealDetails, continueRecipe } = useContext(Context);
 
-function MealDetails({ match: { params: { id } }, location: { pathname } }) {
-  const { mealDetails, favoriteIcon,
-    setFavoriteIcon, continueRecipe } = useContext(Context);
+  const doneRecipe = localStorage.getItem('doneRecipes');
 
   const ingredientsArray = [];
 
-  // load para aparecer "Link Copiado!"
-  const [load, setLoad] = useState(false);
-  // const LOAD_TIMER = 1800;
   const goTo = useHistory();
 
   const mealToLocalStorage = {
@@ -32,13 +26,13 @@ function MealDetails({ match: { params: { id } }, location: { pathname } }) {
     name: mealDetails.strMeal,
     image: mealDetails.strMealThumb,
   };
-  const doneRecipe = localStorage.getItem('doneRecipes');
+
   const meals = {
-    [mealDetails.idMeal]: ingredientsArray,
+    [mealDetails.idMeal]: [],
   };
 
   MountMealDetails(id);
-  console.log(goTo);
+
   return (
     <div className="meal-body">
       <img
@@ -47,42 +41,11 @@ function MealDetails({ match: { params: { id } }, location: { pathname } }) {
         data-testid="recipe-photo"
       />
       <h1 data-testid="recipe-title">{ mealDetails.strMeal}</h1>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        src={ favoriteIcon ? FavoriteImg : NotFavoriteImg }
-        onClick={ () => {
-          setFavoriteIcon(!favoriteIcon);
-          const getFavoriteStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
-          if (getFavoriteStorage !== null) {
-            const getMeal = getFavoriteStorage
-              .some((meal) => meal.id === mealDetails.idMeal);
-
-            if (getMeal === false) {
-              localStorage
-                .setItem('favoriteRecipes', JSON
-                  .stringify([...getFavoriteStorage, mealToLocalStorage]));
-            }
-          }
-        } }
-      >
-        <img src={ favoriteIcon ? FavoriteImg : NotFavoriteImg } alt="favorite" />
-      </button>
-
-      <button
-        type="button"
-        data-testid="share-btn"
-        src={ ShareImg }
-        onClick={ () => {
-          setLoad(true);
-          copy(`http://localhost:3000${pathname}`);
-          // setTimeout(() => setLoad(false), LOAD_TIMER);
-        } }
-      >
-        <img src={ ShareImg } alt="share" />
-      </button>
-      { load && <p>Link copiado!</p>}
+      <FavAndShareBtn
+        ToLocalStorage={ mealToLocalStorage }
+        Details={ mealDetails }
+        location={ location }
+      />
       <p data-testid="recipe-category">{ mealDetails.strCategory }</p>
 
       <MealDetailsIngredients ingredientsArray={ ingredientsArray } />
@@ -111,9 +74,17 @@ function MealDetails({ match: { params: { id } }, location: { pathname } }) {
               goTo.push(`/comidas/${id}/in-progress`);
               const getInProgressStorage = JSON
                 .parse(localStorage.getItem('inProgressRecipes'));
-              localStorage
-                .setItem('inProgressRecipes', JSON
-                  .stringify({ ...getInProgressStorage, meals }));
+              if (!getInProgressStorage.meals[meals]) {
+                localStorage
+                  .setItem('inProgressRecipes', JSON
+                    .stringify({
+                      ...getInProgressStorage,
+                      meals: {
+                        ...getInProgressStorage.meals,
+                        ...meals,
+                      },
+                    }));
+              }
             } }
           >
             {continueRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
@@ -125,9 +96,7 @@ function MealDetails({ match: { params: { id } }, location: { pathname } }) {
 }
 
 MealDetails.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-  }).isRequired,
+  location: PropTypes.objectOf(PropTypes.string).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,

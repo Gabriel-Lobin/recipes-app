@@ -1,58 +1,63 @@
 import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router';
 import Context from '../../Context/Context';
-// import Footer from '../../Components/Footer/index';
-import ShareImg from '../../images/whiteHeartIcon.svg';
-import FavoriteImg from '../../images/shareIcon.svg';
 import MountDrinkDetails from '../../Context/customHooks/MountDrinkDetails';
 import DrinkDetailsIngredients from '../../Components/DrinkDetailsIngredients';
+import './style.css';
+import FavAndShareBtn from '../../Components/FavoriteAndShareBtn/FavoriteAndShareBtn';
 
-function MakingDrinks({ match: { params: { id } } }) {
+function MakingDrinks({ match: { params: { id } }, location }) {
   const { drinkDetails } = useContext(Context);
 
+  const goTo = useHistory();
+
   const ingredientsArray = [];
+
+  const drinkToLocalStorage = {
+    id: drinkDetails.idDrink,
+    type: 'bebida',
+    area: '',
+    category: drinkDetails.strCategory,
+    alcoholicOrNot: drinkDetails.strAlcoholic,
+    name: drinkDetails.strDrink,
+    image: drinkDetails.strDrinkThumb,
+  };
+
   MountDrinkDetails(id);
+
   return (
     <div key={ drinkDetails.idDrink }>
       <img data-testid="recipe-photo" src={ drinkDetails.strDrinkThumb } alt="food" />
       <h1 data-testid="recipe-title">{ drinkDetails.strDrink }</h1>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        src={ FavoriteImg }
-      >
-        <img src={ FavoriteImg } alt="share" />
-      </button>
-
-      <button
-        type="button"
-        data-testid="share-btn"
-        src={ ShareImg }
-      >
-        <img src={ ShareImg } alt="share" />
-      </button>
+      <FavAndShareBtn
+        ToLocalStorage={ drinkToLocalStorage }
+        Details={ drinkDetails }
+        location={ location }
+      />
       <p data-testid="recipe-category">{drinkDetails.strCategory}</p>
-      <DrinkDetailsIngredients ingredientsArray={ ingredientsArray } />
+      <DrinkDetailsIngredients
+        ingredientsArray={ ingredientsArray }
+      />
       <p data-testid="instructions">{drinkDetails.strInstructions}</p>
       <button
+        onClick={ () => goTo.push('/receitas-feitas') }
         data-testid="finish-recipe-btn"
         type="button"
       >
         terminado
       </button>
-      {/* <Footer /> */}
     </div>
   );
 }
 
 MakingDrinks.propTypes = {
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-  }).isRequired,
+  location: PropTypes.objectOf(PropTypes.string).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
   }).isRequired,
 };
+
 export default MakingDrinks;

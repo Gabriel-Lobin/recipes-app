@@ -16,6 +16,7 @@ const useFirstHook = () => {
     const apiFetch = async () => {
       setState({
         ...state,
+        // ingredientsArray:
         api: await func.fetchApi(state.whichApi, state.lookingFor),
         allMeals: await func.shouldFetch(variables.mealByName),
         mealCategories: await func.shouldFetch(variables.mealCategory),

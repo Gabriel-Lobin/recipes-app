@@ -97,12 +97,12 @@ const goToDetails = (param, param2) => {
   if (drinks && drinks.length === 1) {
     const [a] = drinks;
     const { idDrink } = a;
-    param2.push(`${idDrink}`);
+    param2.push(`/bebidas/${idDrink}`);
   }
   if (meals && meals.length === 1) {
     const [a] = meals;
     const { idMeal } = a;
-    param2.push(`${idMeal}`);
+    param2.push(`/comidas/${idMeal}`);
   }
 };
 
@@ -162,7 +162,6 @@ const alertIfCantFind = ({ meals = true, drinks = true }) => {
     global.alert(
       'Sinto muito, não encontramos nenhuma receita para esses filtros.',
     );
-    // // console.log(meals, drinks);
   }
 };
 
@@ -176,7 +175,6 @@ const fetchApi = async (param, param2) => {
   try {
     const getApi = await fetch(`${param}${param2}`);
     const results = await getApi.json();
-    // console.log('I am fetchApi: ', results);
     alertIfCantFind(results);
     return results;
   } catch (e) {
@@ -213,6 +211,10 @@ const profileLocalStorage = (param) => {
   }
 };
 
+const setLocalStorage = () => {
+
+};
+
 const services = {
   flexFetchForMeals,
   shouldFetch,
@@ -235,6 +237,7 @@ const services = {
   getDrink,
   getMealCategory,
   getDrinkCategory,
+  setLocalStorage,
 };
 
 export default services;
