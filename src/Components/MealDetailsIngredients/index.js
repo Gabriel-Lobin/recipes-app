@@ -3,11 +3,13 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import Context from '../../Context/Context';
 import { MealsIngredients, MealsMeasure } from '../../utils/compare';
+import func from '../../utils';
 
 function MealDetailsIngredients({ ingredientsArray }) {
   const goTo = useHistory();
+  const itemId = goTo.location.pathname.split('/');
 
-  const { mealDetails } = useContext(Context);
+  const { mealDetails, checkArray, setCheckArray } = useContext(Context);
 
   const createArrayIngredients = () => {
     for (let index = 0; index < MealsIngredients.length; index += 1) {
@@ -27,6 +29,20 @@ function MealDetailsIngredients({ ingredientsArray }) {
     createArrayIngredients();
   }
 
+  const checkedArray = [];
+  ingredientsArray.forEach((e, i) => {
+    const checked = JSON.parse(localStorage.getItem(`${e}`))
+      ? JSON.parse(localStorage.getItem(`${e}`)) : false;
+    checkedArray.push(checked);
+    if (checkArray.length < 1 && i + 1 === ingredientsArray.length) {
+      setCheckArray([...checkedArray]);
+    }
+  });
+
+  const block = {
+    checkedArray, setCheckArray, itemId,
+  };
+
   return (
     <>
       <h2>Ingredients</h2>
@@ -40,11 +56,7 @@ function MealDetailsIngredients({ ingredientsArray }) {
                   key={ index }
                   htmlFor={ ingredient }
                 >
-                  <input
-                    type="checkbox"
-                    name={ ingredient }
-                    id={ ingredient }
-                  />
+                  {func.inputCheckerDrinks(ingredient, index, block)}
                   {ingredient}
                 </label>
               ))}

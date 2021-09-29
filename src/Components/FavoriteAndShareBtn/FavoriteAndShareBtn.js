@@ -42,7 +42,7 @@ function FavoriteAndShareBtn({ location: { pathname }, ToLocalStorage, Details }
         src={ ShareImg }
         onClick={ () => {
           setLoad(true);
-          copy(`http://localhost:3000${pathname}`);
+          copy(`http://localhost:3000${pathname}`.replace('/in-progress', ''));
         } }
       >
         <img src={ ShareImg } alt="share" />

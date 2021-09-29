@@ -79,7 +79,7 @@ function DrinksBody() {
       {randomMeals.length ? randomMeals.map((e, index) => (
         <button
           className="button-with-image"
-          onClick={ () => goTo.push(`bebidas/${e.idDrink}`) }
+          onClick={ () => goTo.push(`/bebidas/${e.idDrink}`) }
           key={ index }
           type="button"
           data-testid={ `${index}-recipe-card` }

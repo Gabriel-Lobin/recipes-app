@@ -17,8 +17,11 @@ function Provider({ children }) {
   const [favoriteIcon, setFavoriteIcon] = useState(false);
   const [continueRecipe, setContinueRecipe] = useState(false);
   const [inProgressRecipes, setInProgressRecipe] = useState({ cocktails: {}, meals: {} });
+  const [checkArray, setCheckArray] = useState([]);
 
   const context = {
+    checkArray,
+    setCheckArray,
     state,
     setState,
     user,
