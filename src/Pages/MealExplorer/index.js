@@ -10,7 +10,6 @@ function MealExplorer() {
     <div>
       <Header />
       <Comidas />
-
       <Footer />
     </div>
   );

@@ -8,13 +8,13 @@ import './searchBar.css';
 function SearchBar() {
   const { state, setState } = useContext(Context);
   const goTo = useHistory();
+
   useEffect(() => {
     if (state.api) {
       functions.goToDetails(state, goTo);
     }
   });
 
-  // console.log(state);
   return (
     <div
       className={ functions

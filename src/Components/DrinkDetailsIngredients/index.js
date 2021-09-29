@@ -2,36 +2,47 @@ import PropTypes from 'prop-types';
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import Context from '../../Context/Context';
-
-const ARRAY_NUMBER = 32;
-const START_ARRAY_NUMBER = 21; // era 17
-const START_ARRAY_MEASURE = 15;
+import { DrinksIngredients, DrinksMeasures } from '../../utils/compare';
+import func from '../../utils';
 
 function DrinkDetailsIngredients({ ingredientsArray }) {
   const goTo = useHistory();
+  const itemId = goTo.location.pathname.split('/');
 
-  const { drinkDetails } = useContext(Context);
-
-  const ingredients = Object.values(drinkDetails);
+  const { drinkDetails, checkArray, setCheckArray } = useContext(Context);
 
   const createArrayIngredients = () => {
-    for (let index = START_ARRAY_NUMBER; index < ARRAY_NUMBER; index += 1) {
-      const position = index + START_ARRAY_MEASURE;
-      const ingredientName = ingredients[index];
-      const ingredientMeasure = ingredients[position];
-
-      if (ingredientName !== '' && ingredientName !== null) {
+    for (let index = 0; index < DrinksIngredients.length; index += 1) {
+      const positionIngredient = DrinksIngredients[index];
+      const positionMeasure = DrinksMeasures[index];
+      const ingredientName = drinkDetails[positionIngredient];
+      const ingredientMeasure = drinkDetails[positionMeasure];
+      if (ingredientMeasure === null && ingredientName !== null) {
+        ingredientsArray.push(ingredientName);
+      } else if (ingredientName !== '' && ingredientName !== null) {
         ingredientsArray.push(`${ingredientName} ${ingredientMeasure}`);
       }
     }
   };
 
-  function callIngredientsArray() {
-    if (ingredients.length > 0) {
-      createArrayIngredients();
-    }
+  if (Object.keys(drinkDetails).length > 0) {
+    createArrayIngredients();
   }
-  callIngredientsArray();
+
+  const checkedArray = [];
+  ingredientsArray.forEach((e, i) => {
+    const checked = JSON.parse(localStorage.getItem(`${e}`))
+      ? JSON.parse(localStorage.getItem(`${e}`)) : false;
+    checkedArray.push(checked);
+    if (checkArray.length < 1 && i + 1 === ingredientsArray.length) {
+      setCheckArray([...checkedArray]);
+    }
+  });
+
+  const block = {
+    checkedArray, setCheckArray, itemId,
+  };
+
   return (
     <>
       <h2>Ingredients</h2>
@@ -43,13 +54,10 @@ function DrinkDetailsIngredients({ ingredientsArray }) {
                 <label
                   data-testid={ `${index}-ingredient-step` }
                   key={ index }
-                  htmlFor={ ingredients }
+                  htmlFor={ ingredient }
+                  id={ `check${index}` }
                 >
-                  <input
-                    type="checkbox"
-                    name={ ingredient }
-                    id={ ingredient }
-                  />
+                  {func.inputChecker(ingredient, index, block)}
                   {ingredient}
                 </label>
               ))}
@@ -65,7 +73,6 @@ function DrinkDetailsIngredients({ ingredientsArray }) {
             </p>
           ))
       }
-
     </>
   );
 }

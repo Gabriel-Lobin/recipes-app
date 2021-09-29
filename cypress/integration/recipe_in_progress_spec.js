@@ -122,7 +122,7 @@ describe('50 - Salve o estado do progresso, que deve ser mantido caso a pessoa a
       .should('have.attr', 'checked');
   });
 
-  it('salva o progresso de uma receita de bebida em andamento', () => {
+  it.only('salva o progresso de uma receita de bebida em andamento', () => {
     cy.visit('http://localhost:3000/bebidas/178319/in-progress', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
