@@ -57,7 +57,7 @@ function DrinkDetailsIngredients({ ingredientsArray }) {
                   htmlFor={ ingredient }
                   id={ `check${index}` }
                 >
-                  {func.inputChecker(ingredient, index, block)}
+                  {func.inputCheckerDrinks(ingredient, index, block)}
                   {ingredient}
                 </label>
               ))}
