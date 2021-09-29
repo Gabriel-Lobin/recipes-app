@@ -3,16 +3,6 @@ import Context from '../Context';
 
 const organizeDrinkState = (id, inProgressRecipes, setInProgressRecipe) => {
   console.log(id, inProgressRecipes, setInProgressRecipe);
-<<<<<<< HEAD
-=======
-  // teste.reduce((acumulador, elemento) => {
-  //     if (elemento) {
-  //       [ingredient]: false,
-  //     }
-
-  //     return acumulador;
-  // },[]);
->>>>>>> origin/group-17-localStorage
 };
 
 const organizeMealState = (id, inProgressRecipes, setInProgressRecipe) => {
