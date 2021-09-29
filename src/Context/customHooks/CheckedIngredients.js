@@ -2,14 +2,7 @@ import { useContext, useEffect } from 'react';
 import Context from '../Context';
 
 const organizeDrinkState = (id, inProgressRecipes, setInProgressRecipe) => {
-    console.log(id, inProgressRecipes, setInProgressRecipe);
-    teste.reduce((acumulador, elemento) => {
-        if (elemento) {
-          [ingredient]: false,
-        }
-
-        return acumulador;
-    },[]);
+  console.log(id, inProgressRecipes, setInProgressRecipe);
 };
 
 const organizeMealState = (id, inProgressRecipes, setInProgressRecipe) => {
